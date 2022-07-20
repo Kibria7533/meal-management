@@ -1,11 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBazarListDto } from './dto/create-bazar-list.dto';
 import { UpdateBazarListDto } from './dto/update-bazar-list.dto';
+import {BazarListSchema, BazarList} from './bazarListSchema';
+import {Model} from "mongoose";
+import {InjectModel} from "@nestjs/mongoose";
 
 @Injectable()
 export class BazarListService {
-  create(createBazarListDto: CreateBazarListDto) {
-    return 'This action adds a new bazarList';
+
+    constructor(@InjectModel('BazarList.Name') private bazarListModel:Model<BazarList>) { }
+
+ async create(createBazarListDto: CreateBazarListDto) {
+   try{
+       const bazarList = new this.bazarListModel(createBazarListDto);
+       return bazarList.save();
+   }catch (err){
+     return err;
+   }
+
+
   }
 
   findAll() {
