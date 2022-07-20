@@ -17,10 +17,7 @@ export class BazarListService {
    }catch (err){
      return err;
    }
-
-
   }
-
   findAll() {
     return `This action returns all bazarList`;
   }
