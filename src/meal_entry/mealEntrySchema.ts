@@ -5,11 +5,16 @@ export class MealEntry {
     @IsNotEmpty()
     @IsString()
     @Prop()
-    cost: string;
+    break_fast: string;
 
     @IsString()
     @IsNotEmpty()
     @Prop()
-    item_name: string;
+    launch: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @Prop()
+    dinner: string;
 }
 export const MealEntrySchema = SchemaFactory.createForClass(MealEntry);
