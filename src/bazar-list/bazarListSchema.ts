@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import {IsNotEmpty, IsString} from "class-validator";
-@Schema()
+
+@Schema({ timestamps: true })
 export class BazarList {
     @IsNotEmpty()
     @IsString()
@@ -11,5 +12,6 @@ export class BazarList {
     @IsNotEmpty()
     @Prop()
     item_name: string;
+
 }
 export const BazarListSchema = SchemaFactory.createForClass(BazarList);

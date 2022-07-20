@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import {IsNotEmpty, IsString} from "class-validator";
-@Schema()
+@Schema({ timestamps: true })
 export class MealEntry {
     @IsNotEmpty()
     @IsString()

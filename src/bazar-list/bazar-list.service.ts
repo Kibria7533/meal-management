@@ -8,7 +8,7 @@ import {InjectModel} from "@nestjs/mongoose";
 @Injectable()
 export class BazarListService {
 
-    constructor(@InjectModel('BazarList.Name') private bazarListModel:Model<BazarList>) { }
+    constructor(@InjectModel('BazarList') private bazarListModel:Model<BazarList>) { }
 
  async create(createBazarListDto: CreateBazarListDto) {
    try{
