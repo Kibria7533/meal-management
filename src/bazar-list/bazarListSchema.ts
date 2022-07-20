@@ -1,11 +1,13 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import {IsNotEmpty} from "class-validator";
+import {IsNotEmpty, IsString} from "class-validator";
 @Schema()
 export class BazarList {
     @IsNotEmpty()
+    @IsString()
     @Prop()
     cost: string;
 
+    @IsString()
     @IsNotEmpty()
     @Prop()
     item_name: string;
