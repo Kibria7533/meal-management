@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BazarListModule } from './bazar-list/bazar-list.module';
+import { BazarListModule } from '../bazar-list/bazar-list.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
