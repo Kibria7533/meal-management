@@ -1,17 +1,27 @@
-import { Injectable } from '@nestjs/common';
-import { CreateMemberDto } from './dto/create-member.dto';
-import { UpdateMemberDto } from './dto/update-member.dto';
-import {Member,MemberSchema} from "./memberSchema";
+import {Injectable} from '@nestjs/common';
+import {CreateMemberDto} from './dto/create-member.dto';
+import {UpdateMemberDto} from './dto/update-member.dto';
+import {Member} from "./memberSchema";
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
-import {User} from "../users/users.service";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class MemberService {
+
   constructor(@InjectModel('Member') private memberModel:Model<Member>) {
   }
 
   async create(createMemberDto: CreateMemberDto) {
+    const {password,name}=createMemberDto;
+    const existCheck=await this.memberModel.findOne({name:name});
+    if(existCheck){
+      return {
+        msg:"User already exists"
+      }
+    }
+    const saltOrRounds = 10;
+    createMemberDto.password=await bcrypt.hash(password, saltOrRounds);
     return new this.memberModel(createMemberDto).save();
   }
 

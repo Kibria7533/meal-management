@@ -15,5 +15,5 @@ export class CreateMemberDto {
 
     @IsString()
     @IsNotEmpty()
-    readonly password: string;
+    password: string;
 }
