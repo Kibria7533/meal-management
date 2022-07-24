@@ -23,6 +23,19 @@ export class Member{
     @IsString()
     @Prop()
     address: string;
-}
 
+    @IsNotEmpty()
+    @IsString()
+    @Prop()
+    password:string
+
+    @IsNotEmpty()
+    @IsNumber()
+    @Prop({default: 0})
+    role:Role
+}
+enum Role {
+    "User",
+    "Admin"
+}
 export const MemberSchema = SchemaFactory.createForClass(Member);

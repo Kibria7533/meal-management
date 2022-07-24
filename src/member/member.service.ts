@@ -4,14 +4,15 @@ import { UpdateMemberDto } from './dto/update-member.dto';
 import {Member,MemberSchema} from "./memberSchema";
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
+import {User} from "../users/users.service";
 
 @Injectable()
 export class MemberService {
-  constructor(@InjectModel('Member') private memberList:Model<Member>) {
+  constructor(@InjectModel('Member') private memberModel:Model<Member>) {
   }
 
   async create(createMemberDto: CreateMemberDto) {
-    return new this.memberList(createMemberDto).save();
+    return new this.memberModel(createMemberDto).save();
   }
 
   findAll() {
@@ -27,6 +28,10 @@ export class MemberService {
   }
 
   async remove(id: number) {
-    return this.memberList.deleteOne({id})
+    return this.memberModel.deleteOne({id})
+  }
+
+  async find(username: string) {
+    return this.memberModel.findOne({name: username});
   }
 }
