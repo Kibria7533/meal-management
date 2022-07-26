@@ -4,20 +4,18 @@ import {IsNotEmpty,IsString,IsNumber} from "class-validator";
 export class Deposit{
 
     @IsNotEmpty()
+    @IsString()
+    @Prop()
+    name: string;
+
+    @IsNotEmpty()
     @IsNumber()
     @Prop()
     amount: number;
 
-    @IsNotEmpty()
     @IsNumber()
-    @Prop()
-    member_id: number;
-
-    @IsNotEmpty()
-    @IsString()
-    @Prop()
-    details: string;
-
+    @Prop({default: 0})
+    status: number;
 }
 
 export const DepositSchema = SchemaFactory.createForClass(Deposit);

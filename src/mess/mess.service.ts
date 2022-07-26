@@ -4,6 +4,7 @@ import { UpdateMessDto } from './dto/update-mess.dto';
 import {Mess, MessSchema} from './messSchema';
 import {Model} from 'mongoose';
 import {InjectModel} from "@nestjs/mongoose";
+import {Member} from "../member/memberSchema";
 
 @Injectable()
 export class MessService {
@@ -17,8 +18,8 @@ export class MessService {
     }
   }
 
-  findAll() {
-    return `This action returns all mess`;
+  findAll():Promise<Mess[]>{
+    return this.messListModel.find().exec();
   }
 
   findOne(id: number) {
@@ -30,6 +31,6 @@ export class MessService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} mess`;
+    return this.messListModel.deleteOne({id})
   }
 }

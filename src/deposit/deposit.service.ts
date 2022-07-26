@@ -11,23 +11,23 @@ export class DepositService {
 
   constructor(@InjectModel('Deposit') private depositListModel:Model<Deposit>) { }
 
-  create(createDepositDto: CreateDepositDto) {
+ async create(createDepositDto: CreateDepositDto) {
     return new this.depositListModel(createDepositDto).save();
   }
 
-  findAll() {
-    return `This action returns all deposit`;
+ async findAll(): Promise<Deposit[]> {
+    return this.depositListModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} deposit`;
+  async findOne(id: number):Promise<Deposit[]> {
+  return this.depositListModel.find().exec();
   }
 
-  update(id: number, updateDepositDto: UpdateDepositDto) {
-    return `This action updates a #${id} deposit`;
+  async update(id: number, updateDepositDto: UpdateDepositDto) {
+    return this.depositListModel.updateOne({id},{$set:{...updateDepositDto}})
   }
 
   remove(id: number) {
-    return `This action removes a #${id} deposit`;
+    return this.depositListModel.deleteOne({ id })
   }
 }

@@ -20,19 +20,19 @@ export class MealEntryService {
 
   }
 
-  findAll() {
-    return `This action returns all mealEntry`;
+  async findAll(): Promise<MealEntry[]> {
+    return this.MealEntryModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} mealEntry`;
+ async findOne(id: number): Promise<MealEntry[]> {
+    return this.MealEntryModel.find().exec();
   }
 
-  update(id: number, updateMealEntryDto: UpdateMealEntryDto) {
-    return `This action updates a #${id} mealEntry`;
+ async update(id: number, updateMealEntryDto: UpdateMealEntryDto) {
+    return this.MealEntryModel.updateOne({id},{$set:{...updateMealEntryDto}})
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} mealEntry`;
+  async remove(id: number) {
+    return this.MealEntryModel.deleteOne({id});
   }
 }

@@ -14,16 +14,16 @@ export class MonthlyStatementService {
     return new this.MonthlyStatementListModel(createMonthlyStatementDto).save();
   }
 
-  findAll() {
-    return `This action returns all monthlyStatement`;
+  findAll():Promise<MonthlyStatement[]> {
+    return this.MonthlyStatementListModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} monthlyStatement`;
+  findOne(id: number):Promise<MonthlyStatement[]> {
+    return this.MonthlyStatementListModel.find().exec();
   }
 
   update(id: number, updateMonthlyStatementDto: UpdateMonthlyStatementDto) {
-    return `This action updates a #${id} monthlyStatement`;
+    return this.MonthlyStatementListModel.updateOne({id},{$set:{...updateMonthlyStatementDto}})
   }
 
   remove(id: number) {

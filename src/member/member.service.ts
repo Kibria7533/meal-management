@@ -25,8 +25,8 @@ export class MemberService {
     return new this.memberModel(createMemberDto).save();
   }
 
-  findAll() {
-    return `This action returns all member`;
+  findAll():Promise<Member[]> {
+    return this.memberModel.find().exec();
   }
 
   findOne(id: number) {
@@ -42,6 +42,6 @@ export class MemberService {
   }
 
   async find(username: string) {
-    return this.memberModel.findOne({name: username});
+    return  this.memberModel.findOne({name: username});
   }
 }

@@ -11,7 +11,7 @@ import {UsersModule} from "../users/users.module";
 import {AuthModule} from "../auth/auth.module";
 // 'mongodb+srv://messdb1:kibria7533@cluster0.ak8uw.mongodb.net/?retryWrites=true&w=majority'
 @Module({
-  imports: [MongooseModule.forRoot('mongodb+srv://messdb1:kibria7533@cluster0.ak8uw.mongodb.net/?retryWrites=true&w=majority'),
+  imports: [MongooseModule.forRoot('mongodb://localhost/mess'),
     BazarListModule,
     MessModule,
     DepositModule,
