@@ -10,6 +10,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import {UsersModule} from "../users/users.module";
 import {AuthModule} from "../auth/auth.module";
 import {MealEntryModule} from "../meal_entry/meal_entry.module";
+import {RequestModule} from "../request/request.module";
 // 'mongodb+srv://messdb1:kibria7533@cluster0.ak8uw.mongodb.net/?retryWrites=true&w=majority'
 @Module({
   imports: [MongooseModule.forRoot('mongodb+srv://messdb1:kibria7533@cluster0.ak8uw.mongodb.net/?retryWrites=true&w=majority'),
@@ -18,6 +19,7 @@ import {MealEntryModule} from "../meal_entry/meal_entry.module";
     DepositModule,
     MealEntryModule,
     MemberModule,
+    RequestModule,
     MonthlyStatementModule,
     AuthModule
   ],
