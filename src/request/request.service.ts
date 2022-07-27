@@ -22,7 +22,7 @@ export class RequestService {
     let members=this.memberModel.find({});
     let mealEntry=this.MealEntryModel.find({});
     let deposits=this.depositListModel.find({});
-    return [members,mealEntry,deposits]
+    return {members:members,mealEntry:mealEntry,deposits:deposits}
   }
 
   findOne(id: number) {
