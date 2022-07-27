@@ -17,7 +17,7 @@ export class Mess{
     @IsNotEmpty()ra
     @IsString()
     @Prop()
-    phone_no: string;
+    phone_no: number;
 
     @IsNotEmpty()
     @IsString()
