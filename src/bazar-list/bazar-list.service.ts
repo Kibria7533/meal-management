@@ -18,8 +18,8 @@ export class BazarListService {
      return err;
    }
   }
-  findAll() {
-    return `This action returns all bazarList`;
+   findAll() {
+    return this.bazarListModel.find();
   }
 
   findOne(id: number) {
