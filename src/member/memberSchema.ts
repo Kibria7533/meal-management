@@ -5,19 +5,19 @@ import {IsNotEmpty,IsString,IsNumber} from "class-validator";
 export class Member{
 
     @IsNotEmpty()
-    @IsNumber()
-    @Prop()
-    mess_id: number;
-
-    @IsNotEmpty()
     @IsString()
     @Prop()
     name: string;
 
     @IsNotEmpty()
+    @IsString()
+    @Prop()
+    email: string;
+
+    @IsNotEmpty()
     @IsNumber()
     @Prop()
-    phone_no: number;
+    phone_no: string;
 
     @IsNotEmpty()
     @IsString()

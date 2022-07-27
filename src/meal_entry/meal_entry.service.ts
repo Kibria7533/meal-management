@@ -3,7 +3,6 @@ import { CreateMealEntryDto } from './dto/create-meal_entry.dto';
 import { UpdateMealEntryDto } from './dto/update-meal_entry.dto';
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
-import {BazarList} from "../bazar-list/bazarListSchema";
 import {MealEntry} from "./mealEntrySchema";
 
 @Injectable()
@@ -12,8 +11,8 @@ export class MealEntryService {
   }
   async create(createMealEntryDto: CreateMealEntryDto) {
     try{
-      const bazarList = new this.MealEntryModel(createMealEntryDto);
-      return await bazarList.save();
+      const mealList = new this.MealEntryModel(createMealEntryDto);
+      return await mealList.save();
     }catch (err){
       return err;
     }
