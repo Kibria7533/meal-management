@@ -13,9 +13,21 @@ export class Deposit{
     @Prop()
     amount: number;
 
-    @IsNumber()
-    @Prop({default: 0})
-    status: number;
+    @IsNotEmpty()
+    @IsString()
+    @Prop()
+    mess_id: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @Prop({default(val: any): any {
+            return 0;
+        }})
+    status: meal_status;
 }
 
+enum meal_status {
+    "Pendin",
+    "Active"
+}
 export const DepositSchema = SchemaFactory.createForClass(Deposit);

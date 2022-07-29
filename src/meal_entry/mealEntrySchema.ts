@@ -21,5 +21,23 @@ export class MealEntry {
     @IsString()
     @Prop()
     meal_of: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @Prop()
+    mess_id: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @Prop({default(val: any): any {
+        return 0;
+        }})
+    status: meal_status;
+
+}
+
+enum meal_status {
+    "Pendin",
+    "Active"
 }
 export const MealEntrySchema = SchemaFactory.createForClass(MealEntry);

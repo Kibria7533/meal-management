@@ -29,6 +29,11 @@ export class Member{
     @Prop()
     password:string
 
+
+    @IsString()
+    @Prop()
+    mess_id: string;
+
     @IsNotEmpty()
     @IsNumber()
     @Prop({default: 0})

@@ -65,4 +65,8 @@ export class MemberService {
   async find(name: string) {
     return  this.memberModel.findOne({name: name});
   }
+
+  getMemberStatement(id: number) {
+    return 34;
+  }
 }

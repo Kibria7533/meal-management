@@ -23,5 +23,21 @@ export class BazarList {
     @Prop()
     name_of_person: string;
 
+    @IsNotEmpty()
+    @IsString()
+    @Prop()
+    mess_id: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @Prop({default(val: any): any {
+            return 0;
+        }})
+    status: meal_status;
+
+}
+enum meal_status {
+    "Pendin",
+    "Active"
 }
 export const BazarListSchema = SchemaFactory.createForClass(BazarList);

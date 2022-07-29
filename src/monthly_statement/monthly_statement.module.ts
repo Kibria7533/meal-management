@@ -8,12 +8,14 @@ import { DepositController } from "../deposit/deposit.controller";
 import { DepositModule } from "../deposit/deposit.module";
 import { BazarListModule } from "../bazar-list/bazar-list.module";
 import { MealEntryModule } from "../meal_entry/meal_entry.module";
+import { MemberModule } from "../member/member.module";
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: "MonthlyStatement", schema: MonthlyStatementSchema }]),
     DepositModule,
     BazarListModule,
-    MealEntryModule
+    MealEntryModule,
+    MemberModule
   ],
   controllers: [MonthlyStatementController
   ],

@@ -10,6 +10,4 @@ export class CreateDepositDto {
     @IsNotEmpty()
      amount: number;
 
-    @IsNumber()
-     status: number;
 }

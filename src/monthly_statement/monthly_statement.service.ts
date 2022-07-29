@@ -13,7 +13,7 @@ export class MonthlyStatementService {
   async create(createMonthlyStatementDto: CreateMonthlyStatementDto) {
     return new this.MonthlyStatementListModel(createMonthlyStatementDto).save();
   }
-  async getStatement():Promise<any>{
+  async getStatement(id:number):Promise<any>{
     return "getsta"
   }
   findAll():Promise<MonthlyStatement[]> {
