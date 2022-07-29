@@ -1,7 +1,8 @@
-import { IsNotEmpty, IsNumber, IsString, MaxLength } from "class-validator";
+import { IsEmpty, IsNotEmpty, IsNumber, IsString, MaxLength, MinLength } from "class-validator";
 export class CreateMemberDto {
     @IsString()
     @MaxLength(30)
+    @MinLength(3)
     @IsNotEmpty()
     readonly name: string;
 

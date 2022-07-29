@@ -7,27 +7,13 @@ export class Mess{
     @IsNotEmpty()
     @IsString()
     @Prop()
-    name: string;
+    mess_name: string;
 
     @IsNotEmpty()
     @IsString()
     @Prop()
-    email: string;
+    mess_id: string;
 
-    @IsNotEmpty()ra
-    @IsString()
-    @Prop()
-    phone_no: number;
-
-    @IsNotEmpty()
-    @IsString()
-    @Prop()
-    password: string;
-
-    @IsNotEmpty()
-    @IsString()
-    @Prop()
-    confirm_password: string;
 
 }
 

@@ -1,5 +1,5 @@
-import {Injectable} from '@nestjs/common';
-import {CreateMemberDto} from './dto/create-member.dto';
+import { Body, Injectable, Post } from "@nestjs/common";
+import { CreateMemberDto } from './dto/create-member.dto';
 import {UpdateMemberDto} from './dto/update-member.dto';
 import {Member} from "./memberSchema";
 import {InjectModel} from "@nestjs/mongoose";
@@ -12,17 +12,38 @@ export class MemberService {
   constructor(@InjectModel('Member') private memberModel:Model<Member>) {
   }
 
-  async create(createMemberDto: CreateMemberDto) {
-    const {password,name}=createMemberDto;
+  @Post()
+  async create(@Body() member: CreateMemberDto) {
+    console.log(member);
+    const { password, name } = member;
     const existCheck=await this.memberModel.findOne({name:name});
     if(existCheck){
       return {
-        msg:"User already exists"
+        success:false,
+        status:404,
+        msg: 'User already exists',
       }
     }
-    const saltOrRounds = 10;
-    createMemberDto.password=await bcrypt.hash(password, saltOrRounds);
-    return new this.memberModel(createMemberDto).save();
+
+    try{
+      const saltOrRounds = 10;
+      member.password=await bcrypt.hash(password, saltOrRounds);
+     let user=new this.memberModel(member).save();
+     if(user)
+       return {
+         success: true,
+         status:201,
+         msg: 'User created',
+       }
+
+    }catch (err){
+      return {
+        success:false,
+        status:404,
+        msg: 'User already exists',
+      }
+    }
+
   }
 
   findAll():Promise<Member[]> {
@@ -41,7 +62,7 @@ export class MemberService {
     return this.memberModel.deleteOne({id})
   }
 
-  async find(username: string) {
-    return  this.memberModel.findOne({name: username});
+  async find(name: string) {
+    return  this.memberModel.findOne({name: name});
   }
 }

@@ -8,12 +8,32 @@ import {InjectModel} from "@nestjs/mongoose";
 @Injectable()
 export class MessService {
   constructor(@InjectModel('Mess') private messListModel:Model<Mess>) { }
-  async create(createMessDto: CreateMessDto) {
+  async create(mess: CreateMessDto) {
+
+    let messExist=await this.messListModel.findOne({mess_id:mess.mess_id});
+    if(messExist){
+      return {
+        success:false,
+        status:404,
+        msg:"Mess Already exist Please enter Unique Mess Id"
+      }
+    }
     try{
-      const messList = new this.messListModel(createMessDto);
-      return messList.save();
+      const messList = new this.messListModel(mess);
+      let messData=await messList.save();
+
+       return {
+        success:true,
+        status:201,
+         mess_info:messData,
+        msg:"Mess Successfully created"
+      }
     }catch (err){
-      return  err;
+       return {
+        success:false,
+        status:404,
+        msg:"Something error happened"
+      }
     }
   }
 

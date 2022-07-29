@@ -18,8 +18,6 @@ export class AppController {
     return this.authService.login(req.user);
   }
 
-
-
   @Get('profile-user')
   @UseGuards(new JwtAuthGuard(0))
   getProfileUser(@Request() req) {
