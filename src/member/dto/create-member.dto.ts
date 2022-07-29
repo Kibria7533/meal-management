@@ -7,6 +7,10 @@ export class CreateMemberDto {
 
     @IsString()
     @IsNotEmpty()
+    readonly email: string;
+
+    @IsString()
+    @IsNotEmpty()
     readonly phone_no: string;
 
     @IsString()

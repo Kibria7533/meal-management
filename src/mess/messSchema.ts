@@ -7,12 +7,27 @@ export class Mess{
     @IsNotEmpty()
     @IsString()
     @Prop()
-    title: string;
+    name: string;
 
     @IsNotEmpty()
-    @IsNumber()
+    @IsString()
     @Prop()
-    unique_id: number;
+    email: string;
+
+    @IsNotEmpty()ra
+    @IsString()
+    @Prop()
+    phone_no: number;
+
+    @IsNotEmpty()
+    @IsString()
+    @Prop()
+    password: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @Prop()
+    confirm_password: string;
 
 }
 

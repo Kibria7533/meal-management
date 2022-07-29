@@ -4,7 +4,6 @@ import { UpdateMessDto } from './dto/update-mess.dto';
 import {Mess, MessSchema} from './messSchema';
 import {Model} from 'mongoose';
 import {InjectModel} from "@nestjs/mongoose";
-import {Member} from "../member/memberSchema";
 
 @Injectable()
 export class MessService {
