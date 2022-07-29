@@ -9,9 +9,7 @@ import {Deposit} from "../deposit/depositSchema";
 
 @Injectable()
 export class RequestService {
-  constructor(@InjectModel('Member') private memberModel:Model<Member>,
-              @InjectModel('MealEntry.Name') private MealEntryModel:Model<MealEntry>,
-              @InjectModel('Deposit') private depositListModel:Model<Deposit>
+  constructor(@InjectModel('Member') private memberModel:Model<Member>
   ) {
   }
   create(createRequestDto: CreateRequestDto) {
@@ -20,9 +18,7 @@ export class RequestService {
 
   findAll() {
     let members=this.memberModel.find({});
-    let mealEntry=this.MealEntryModel.find({});
-    let deposits=this.depositListModel.find({});
-    return {members:members,mealEntry:mealEntry,deposits:deposits}
+    return "jkhkjh";
   }
 
   findOne(id: number) {

@@ -8,6 +8,7 @@ import {MealEntry,MealEntrySchema} from "./mealEntrySchema";
 @Module({
   imports : [MongooseModule.forFeature([{ name: 'MealEntry.Name', schema: MealEntrySchema }])],
   controllers: [MealEntryController],
-  providers: [MealEntryService]
+  providers: [MealEntryService],
+  exports : [MealEntryService]
 })
 export class MealEntryModule {}

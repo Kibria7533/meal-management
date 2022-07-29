@@ -8,7 +8,11 @@ import {MealEntryService} from "../meal_entry/meal_entry.service";
 
 @Controller('monthly-statement')
 export class MonthlyStatementController {
-  constructor(private readonly monthlyStatementService: MonthlyStatementService,private readonly depositService: DepositService) {}
+  constructor(private readonly monthlyStatementService: MonthlyStatementService,
+              private readonly depositService: DepositService,
+              private readonly mealEntryService: MealEntryService,
+              private readonly bazarListService: BazarListService,
+              ) {}
 
   @Post()
   create(@Body() createMonthlyStatementDto: CreateMonthlyStatementDto) {

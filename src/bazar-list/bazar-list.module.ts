@@ -7,6 +7,7 @@ import {MongooseModule} from "@nestjs/mongoose";
 @Module({
   imports :[MongooseModule.forFeature([{ name: 'BazarList', schema: BazarListSchema }])],
   controllers: [BazarListController],
-  providers: [BazarListService]
+  providers: [BazarListService],
+  exports :[BazarListService]
 })
 export class BazarListModule {}

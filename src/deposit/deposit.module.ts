@@ -7,6 +7,7 @@ import {MongooseModule} from "@nestjs/mongoose";
 @Module({
   imports :[MongooseModule.forFeature([{ name: 'Deposit', schema: DepositSchema }])],
   controllers: [DepositController],
-  providers: [DepositService]
+  providers: [DepositService],
+  exports : [DepositService]
 })
 export class DepositModule {}
