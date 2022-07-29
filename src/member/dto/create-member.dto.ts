@@ -18,7 +18,6 @@ export class CreateMemberDto {
     @IsNotEmpty()
     readonly address: string;
 
-    @IsString()
     @IsNotEmpty()
     password: string;
 }

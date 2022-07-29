@@ -2,10 +2,13 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { MonthlyStatementService } from './monthly_statement.service';
 import { CreateMonthlyStatementDto } from './dto/create-monthly_statement.dto';
 import { UpdateMonthlyStatementDto } from './dto/update-monthly_statement.dto';
+import {DepositService} from "../deposit/deposit.service";
+import {BazarListService} from "../bazar-list/bazar-list.service";
+import {MealEntryService} from "../meal_entry/meal_entry.service";
 
 @Controller('monthly-statement')
 export class MonthlyStatementController {
-  constructor(private readonly monthlyStatementService: MonthlyStatementService) {}
+  constructor(private readonly monthlyStatementService: MonthlyStatementService,private readonly depositService: DepositService) {}
 
   @Post()
   create(@Body() createMonthlyStatementDto: CreateMonthlyStatementDto) {
@@ -31,4 +34,13 @@ export class MonthlyStatementController {
   remove(@Param('id') id: string) {
     return this.monthlyStatementService.remove(+id);
   }
+
+  @Get('/get-statement')
+ getStatementReport(){
+    return this.monthlyStatementService.getStatement();
+  }
+
+
 }
+
+

@@ -13,7 +13,9 @@ export class MonthlyStatementService {
   async create(createMonthlyStatementDto: CreateMonthlyStatementDto) {
     return new this.MonthlyStatementListModel(createMonthlyStatementDto).save();
   }
-
+  async getStatement():Promise<any>{
+    return "getsta"
+  }
   findAll():Promise<MonthlyStatement[]> {
     return this.MonthlyStatementListModel.find().exec();
   }
