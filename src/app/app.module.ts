@@ -7,7 +7,6 @@ import { DepositModule } from "../deposit/deposit.module";
 import { MemberModule } from "../member/member.module";
 import { MonthlyStatementModule } from "../monthly_statement/monthly_statement.module";
 import { MongooseModule } from "@nestjs/mongoose";
-import { UsersModule } from "../users/users.module";
 import { AuthModule } from "../auth/auth.module";
 import { MealEntryModule } from "../meal_entry/meal_entry.module";
 import { RequestModule } from "../request/request.module";
