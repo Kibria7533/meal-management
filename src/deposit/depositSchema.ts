@@ -13,6 +13,11 @@ export class Deposit{
     @Prop()
     amount: number;
 
+    @IsString()
+    @IsString()
+    @Prop()
+    person_id: string;
+
     @IsNotEmpty()
     @IsString()
     @Prop()

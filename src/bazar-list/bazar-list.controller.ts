@@ -1,15 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from "@nestjs/common";
 import { BazarListService } from './bazar-list.service';
 import { CreateBazarListDto } from './dto/create-bazar-list.dto';
 import { UpdateBazarListDto } from './dto/update-bazar-list.dto';
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
 @Controller('bazar-list')
 export class BazarListController {
   constructor(private readonly bazarListService: BazarListService) {}
 
   @Post()
-  create(@Body() createBazarListDto: CreateBazarListDto) {
-    return this.bazarListService.create(createBazarListDto);
+  @UseGuards(new JwtAuthGuard(0))
+  create(@Request() req) {
+    let bazar=req.body;
+    bazar.person_id=req.user.user_id;
+    return this.bazarListService.create(bazar);
   }
 
   @Get()

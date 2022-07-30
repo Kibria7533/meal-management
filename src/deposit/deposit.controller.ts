@@ -1,15 +1,31 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Request,
+  ValidationPipe,
+  Req
+} from "@nestjs/common";
 import { DepositService } from './deposit.service';
 import { CreateDepositDto } from './dto/create-deposit.dto';
 import { UpdateDepositDto } from './dto/update-deposit.dto';
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
 @Controller('deposit')
 export class DepositController {
   constructor(private readonly depositService: DepositService) {}
 
   @Post()
-  create(@Body() createDepositDto: CreateDepositDto) {
-    return this.depositService.create(createDepositDto);
+  @UseGuards(new JwtAuthGuard(0))
+  create(@Body(new ValidationPipe) body: CreateDepositDto, @Req() req) {
+    let deposit  =req.body;
+    deposit.person_id=req.user.user_id;
+    return this.depositService.create(deposit);
   }
 
   @Get()

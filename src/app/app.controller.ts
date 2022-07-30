@@ -1,14 +1,16 @@
-import {Controller, Request, Post, UseGuards, Get, Body} from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Get, Body, ValidationPipe } from "@nestjs/common";
 import { LocalAuthGuard } from '../auth/local-auth.guard';
 import { AuthService } from '../auth/auth.service';
 import {JwtAuthGuard} from "../auth/jwt-auth.guard";
+import { CreateDepositDto } from "../deposit/dto/create-deposit.dto";
+import { CreateMemberDto } from "../member/dto/create-member.dto";
 
 @Controller()
 export class AppController {
   constructor(private authService: AuthService) {}
 
   @Post('/auth/signup')
-  async signup(@Body() body:any){
+  async signup(@Body(new ValidationPipe) body: CreateMemberDto){
     return this.authService.signup(body);
   }
 

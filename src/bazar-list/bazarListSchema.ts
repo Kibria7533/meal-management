@@ -3,10 +3,6 @@ import {IsNotEmpty, IsString} from "class-validator";
 
 @Schema({ timestamps: true })
 export class BazarList {
-    @IsNotEmpty()
-    @IsString()
-    @Prop()
-    date: string;
 
     @IsNotEmpty()
     @IsString()
@@ -21,7 +17,7 @@ export class BazarList {
     @IsString()
     @IsString()
     @Prop()
-    name_of_person: string;
+    person_id: string;
 
     @IsNotEmpty()
     @IsString()
@@ -37,7 +33,7 @@ export class BazarList {
 
 }
 enum meal_status {
-    "Pendin",
+    "Pending",
     "Active"
 }
 export const BazarListSchema = SchemaFactory.createForClass(BazarList);
