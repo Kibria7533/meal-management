@@ -14,7 +14,4 @@ export class CreateBazarListDto {
     @IsNotEmpty()
     readonly item_name: string;
 
-    @IsString()
-    @IsNotEmpty()
-     person_id: string;
 }

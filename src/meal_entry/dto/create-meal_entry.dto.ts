@@ -12,4 +12,8 @@ export class CreateMealEntryDto {
     @IsNotEmpty()
     dinner: number;
 
+    @IsString()
+    @IsNotEmpty()
+    readonly mess_id: string;
+
 }

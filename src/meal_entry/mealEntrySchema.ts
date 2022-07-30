@@ -27,6 +27,11 @@ export class MealEntry {
     @Prop()
     mess_id: string;
 
+    @IsString()
+    @IsString()
+    @Prop()
+    person_id: string;
+
     @IsNotEmpty()
     @IsString()
     @Prop({default(val: any): any {

@@ -1,8 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Request,
+  ValidationPipe,
+  Req
+} from "@nestjs/common";
 import { BazarListService } from './bazar-list.service';
 import { CreateBazarListDto } from './dto/create-bazar-list.dto';
 import { UpdateBazarListDto } from './dto/update-bazar-list.dto';
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { CreateDepositDto } from "../deposit/dto/create-deposit.dto";
 
 @Controller('bazar-list')
 export class BazarListController {
@@ -10,7 +23,7 @@ export class BazarListController {
 
   @Post()
   @UseGuards(new JwtAuthGuard(0))
-  create(@Request() req) {
+  create(@Body(new ValidationPipe) body: CreateBazarListDto, @Req() req) {
     let bazar=req.body;
     bazar.person_id=req.user.user_id;
     return this.bazarListService.create(bazar);

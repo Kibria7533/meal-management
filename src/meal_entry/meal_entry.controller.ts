@@ -1,15 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Req, UseGuards } from "@nestjs/common";
 import { MealEntryService } from './meal_entry.service';
 import { CreateMealEntryDto } from './dto/create-meal_entry.dto';
 import { UpdateMealEntryDto } from './dto/update-meal_entry.dto';
+import { CreateDepositDto } from "../deposit/dto/create-deposit.dto";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
 @Controller('meal-entry')
 export class MealEntryController {
   constructor(private readonly mealEntryService: MealEntryService) {}
 
   @Post()
-  create(@Body() createMealEntryDto: CreateMealEntryDto) {
-    return this.mealEntryService.create(createMealEntryDto);
+  @UseGuards(new JwtAuthGuard(0))
+  create(@Body(new ValidationPipe) body: CreateMealEntryDto, @Req() req) {
+    let mealEntry  =req.body;
+    mealEntry.person_id=req.user.user_id;
+    return this.mealEntryService.create(mealEntry);
   }
 
   @Get()
