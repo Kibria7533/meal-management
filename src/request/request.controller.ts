@@ -2,10 +2,17 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { RequestService } from './request.service';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
+import {DepositService} from "../deposit/deposit.service";
+import {BazarListService} from "../bazar-list/bazar-list.service";
+import {MealEntryService} from "../meal_entry/meal_entry.service";
 
 @Controller('request')
 export class RequestController {
-  constructor(private readonly requestService: RequestService) {}
+  constructor(private readonly requestService: RequestService,
+              private readonly depositService: DepositService,
+              private readonly bazarListService: BazarListService,
+              private readonly mealEntryService: MealEntryService
+              ) {}
 
   @Post()
   create(@Body() createRequestDto: CreateRequestDto) {
@@ -14,6 +21,7 @@ export class RequestController {
 
   @Get()
   findAll() {
+
     return this.requestService.findAll();
   }
 
@@ -31,4 +39,7 @@ export class RequestController {
   remove(@Param('id') id: string) {
     return this.requestService.remove(+id);
   }
+
+
+
 }
