@@ -70,10 +70,6 @@ export class MemberService {
   }
 
   getMemberStatement(id: string) {
-    let d = new Date(),
-      month = d.getMonth(),
-      year = d.getFullYear();
-
     return this.memberModel.aggregate([{
       $match: {
         $and: [{ status: 1 }, { mess_id: id }]

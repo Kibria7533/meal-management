@@ -35,7 +35,7 @@ export class MealEntryService {
     return this.MealEntryModel.deleteOne({id});
   }
 
-  getMealStatement(id: number) {
+  getMealStatement(id: string) {
     let d = new Date(),
       month = d.getMonth(),
       year = d.getFullYear();

@@ -48,7 +48,7 @@ export class MonthlyStatementController {
     let deposit=this.depositService.getDepositStatement(id);
     let bazarList=this.bazarListService.getBazarStatement(id);
     let memberList=this.memberService.getMemberStatement(id);
-    let mealList=this.mealEntryService.getMealStatement(+id);
+    let mealList=this.mealEntryService.getMealStatement(id);
 
 
     return memberList;

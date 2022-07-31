@@ -38,6 +38,17 @@ export class Member{
     @IsNumber()
     @Prop({default: 0})
     role:Role
+
+    @IsNotEmpty()
+    @IsString()
+    @Prop({default(val: any): any {
+            return 0;
+        }})
+    status: status;
+}
+enum status {
+    "Pendin",
+    "Active"
 }
 enum Role {
     "User",
