@@ -20,7 +20,6 @@ import {
     }
   
     handleRequest(err, user, info) {
-      console.log(user,err,'Magic');
       // You can throw an exception based on either "info" or "err" arguments
       if (err || !user || user.role !=this.rolePassed) {
         throw err || new UnauthorizedException();

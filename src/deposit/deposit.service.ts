@@ -33,15 +33,20 @@ export class DepositService {
   }
 
 
-  getDepositStatement(id: number) {
+  getDepositStatement(id: string) {
 
     let d = new Date(),
       month = d.getMonth(),
       year = d.getFullYear();
 
-    return this.depositListModel.find({ mess_id:id,status:1,
-      createdAt: { $lt: new Date(), $gt: new Date(year + "," + month) }
-    });
+    return this.depositListModel.aggregate([{
+      $match: {
+        $and: [{ status: 1 }, { mess_id: id }, { createdAt: { $lt: new Date(), $gt: new Date(year + "," + month) } }]
+      }
+    },
+      { $group: { _id: "$mess_id", totalAmount: { $sum: "$amount" } } },
+      {$project:{_id:0}}
+    ]);
 
   }
 

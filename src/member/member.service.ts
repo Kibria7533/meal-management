@@ -14,7 +14,6 @@ export class MemberService {
 
   @Post()
   async create(@Body() member: CreateMemberDto) {
-    console.log(member);
     const { password, name } = member;
     const existCheck=await this.memberModel.findOne({name:name});
     if(existCheck){
@@ -50,10 +49,14 @@ export class MemberService {
     return this.memberModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} member`;
+  findOne(user_id: string,mess_id:string) {
+    return this.memberModel.findOne({_id:user_id,mess_id:mess_id});
   }
 
+
+  async findOneAndUpdate(id: string,mess_id:any) : Promise<any>{
+     return this.memberModel.findOneAndUpdate({ _id: id }, { mess_id: mess_id });
+  }
   update(id: number, updateMemberDto: UpdateMemberDto) {
     return `This action updates a #${id} member`;
   }
@@ -66,7 +69,19 @@ export class MemberService {
     return  this.memberModel.findOne({name: name});
   }
 
-  getMemberStatement(id: number) {
-    return 34;
+  getMemberStatement(id: string) {
+    let d = new Date(),
+      month = d.getMonth(),
+      year = d.getFullYear();
+
+    return this.memberModel.aggregate([{
+      $match: {
+        $and: [{ status: 1 }, { mess_id: id }]
+      }
+    },
+      { $group: { _id: "$mess_id", totalActiveMember: { $sum: "$_id" } } },
+      { $project: { _id: 0 } }
+    ]);
+
   }
 }

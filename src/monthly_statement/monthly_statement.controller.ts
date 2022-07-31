@@ -45,13 +45,13 @@ export class MonthlyStatementController {
   @Get("/get-statement/:id")
   getMonthlyStatement(@Param("id") id: string){
 
-    let deposit=this.depositService.getDepositStatement(+id);
-    let bazarList=this.bazarListService.getBazarStatement(+id);
-    let memberList=this.memberService.getMemberStatement(+id);
+    let deposit=this.depositService.getDepositStatement(id);
+    let bazarList=this.bazarListService.getBazarStatement(id);
+    let memberList=this.memberService.getMemberStatement(id);
     let mealList=this.mealEntryService.getMealStatement(+id);
 
 
-    return deposit;
+    return memberList;
 
 
   }

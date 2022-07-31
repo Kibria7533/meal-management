@@ -1,14 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from "@nestjs/common";
 import { CreateMessDto } from './dto/create-mess.dto';
 import { UpdateMessDto } from './dto/update-mess.dto';
 import {Mess, MessSchema} from './messSchema';
 import {Model} from 'mongoose';
 import {InjectModel} from "@nestjs/mongoose";
+import { MemberService } from "../member/member.service";
 
 @Injectable()
 export class MessService {
-  constructor(@InjectModel('Mess') private messListModel:Model<Mess>) { }
-  async create(mess: CreateMessDto) {
+  constructor(@InjectModel('Mess') private messListModel:Model<Mess>,@Inject(MemberService)
+  private readonly memberService: MemberService) { }
+  async create(mess: CreateMessDto,user_id:string) {
 
     let messExist=await this.messListModel.findOne({mess_id:mess.mess_id});
     if(messExist){
@@ -21,13 +23,14 @@ export class MessService {
     try{
       const messList = new this.messListModel(mess);
       let messData=await messList.save();
-
-       return {
+      let user=this.memberService.findOneAndUpdate(user_id,messData.mess_id);
+      return {
         success:true,
-        status:201,
-         mess_info:messData,
-        msg:"Mess Successfully created"
+        status:404,
+        mess_info:messData,
+        msg:"Something error happened"
       }
+
     }catch (err){
        return {
         success:false,
@@ -35,6 +38,10 @@ export class MessService {
         msg:"Something error happened"
       }
     }
+  }
+
+  async joinMess(mess_id:string,user_id:string):Promise<any>{
+    return this.memberService.findOne( user_id, mess_id);
   }
 
   findAll():Promise<Mess[]>{

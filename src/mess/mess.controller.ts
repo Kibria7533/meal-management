@@ -1,15 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Req, UseGuards } from "@nestjs/common";
 import { MessService } from './mess.service';
 import { CreateMessDto } from './dto/create-mess.dto';
 import { UpdateMessDto } from './dto/update-mess.dto';
+import { CreateMealEntryDto } from "../meal_entry/dto/create-meal_entry.dto";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
 @Controller('mess')
 export class MessController {
   constructor(private readonly messService: MessService) {}
 
   @Post()
-  create(@Body() createMessDto: CreateMessDto) {
-    return this.messService.create(createMessDto);
+  @UseGuards(new JwtAuthGuard(0))
+  create(@Body(new ValidationPipe) body: CreateMessDto, @Req() req) {
+    return this.messService.create(body,req.user.user_id);
+  }
+
+  @Post('join-mess')
+  @UseGuards(new JwtAuthGuard(0))
+  join(@Body() body, @Req() req){
+    return this.messService.joinMess(body.mess_id,req.user.user_id)
   }
 
   @Get()

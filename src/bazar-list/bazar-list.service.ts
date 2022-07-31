@@ -34,13 +34,18 @@ export class BazarListService {
     return `This action removes a #${id} bazarList`;
   }
 
-  getBazarStatement(id: number) {
+  getBazarStatement(id: string) {
     let d = new Date(),
       month = d.getMonth(),
       year = d.getFullYear();
 
-    return this.bazarListModel.find({ mess_id:id,status:1,
-      createdAt: { $lt: new Date(), $gt: new Date(year + "," + month) }
-    });
+    return this.bazarListModel.aggregate([{
+      $match: {
+        $and: [{ status: 1 }, { mess_id: id }, { createdAt: { $lt: new Date(), $gt: new Date(year + "," + month) } }]
+      }
+    },
+      { $group: { _id: "$mess_id", totalCost: { $sum: "$cost" } } },
+      {$project:{_id:0}}
+    ]);
   }
 }

@@ -12,7 +12,6 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
-   console.log('here',username,pass);
     const user = await this.usersService.find(username);
 
     if (user) {
@@ -36,7 +35,7 @@ export class AuthService {
   }
 
   @Post()
-   async signup(@Body() body :CreateMemberDto) {
+   async signup(@Body() body : CreateMemberDto) {
    return  this.usersService.create(body);
   }
 }
