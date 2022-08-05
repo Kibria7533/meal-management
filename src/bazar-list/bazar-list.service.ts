@@ -52,12 +52,12 @@ export class BazarListService {
 
 
 
-    getBazarRequest(id: string) {
+    async getBazarRequest(id: string) {
         let d = new Date(),
             month = d.getMonth(),
             year = d.getFullYear();
 
-        return this.bazarListModel.find({
+        return  this.bazarListModel.find({
             $and: [{status: 0}, {mess_id: id}, {
                 createdAt: {
                     $lt: new Date(),

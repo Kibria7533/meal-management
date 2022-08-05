@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@nestjs/common';
+import { HttpStatus, Inject, Injectable, Res, Response } from "@nestjs/common";
 import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
 import {InjectModel} from "@nestjs/mongoose";
@@ -46,11 +46,18 @@ export class RequestService {
   }
 
 
-  async getAllRequest(id: string){
-    let bazarList=this.bazarListService.getBazarRequest(id);
-    let deposit=this.depositService.getDepositRequest(id);
-    let mealList=this.mealEntryService.getMealEntryRequest(id)
-    return bazarList;
+  async getAllRequest(id: string,@Res() res){
+    let bazarList=await this.bazarListService.getBazarRequest(id);
+    let deposit=await this.depositService.getDepositRequest(id);
+    let mealList=await this.mealEntryService.getMealEntryRequest(id)
+    return res.status(HttpStatus.OK).json({
+      status: 'success',
+      data: {
+        bazarList,
+        deposit,
+        mealList
+      }
+    });
   }
 
 }

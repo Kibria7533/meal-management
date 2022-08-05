@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res } from "@nestjs/common";
 import { RequestService } from './request.service';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
@@ -40,8 +40,8 @@ export class RequestController {
   }
 
   @Get("all-request/:id")
-  getRequestBazarList(@Param("id") id: string){
-   return this.requestService.getAllRequest(id)
+  getRequestBazarList(@Param("id") id: string,@Res() res){
+   return this.requestService.getAllRequest(id,res)
   }
 
 }
