@@ -44,4 +44,21 @@ export class MealEntryService {
       createdAt: { $lt: new Date(), $gt: new Date(year + "," + month) }
     });
   }
+
+    getMealEntryRequest(id:string){
+        let d = new Date(),
+            month = d.getMonth(),
+            year = d.getFullYear();
+
+        return this.MealEntryModel.find({
+            $and: [{status: 0}, {mess_id: id}, {
+                createdAt: {
+                    $lt: new Date(),
+                    $gt: new Date(year + "," + month)
+                }
+            }]
+        })
+    }
+
+
 }

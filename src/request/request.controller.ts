@@ -5,13 +5,12 @@ import { UpdateRequestDto } from './dto/update-request.dto';
 import {DepositService} from "../deposit/deposit.service";
 import {BazarListService} from "../bazar-list/bazar-list.service";
 import {MealEntryService} from "../meal_entry/meal_entry.service";
+import {MemberService} from "../member/member.service";
 
 @Controller('request')
 export class RequestController {
-  constructor(private readonly requestService: RequestService,
-              private readonly depositService: DepositService,
-              private readonly bazarListService: BazarListService,
-              private readonly mealEntryService: MealEntryService
+  constructor(private readonly requestService: RequestService
+
               ) {}
 
   @Post()
@@ -40,6 +39,9 @@ export class RequestController {
     return this.requestService.remove(+id);
   }
 
-
+  @Get("all-request/:id")
+  getRequestBazarList(@Param("id") id: string){
+   return this.requestService.getAllRequest(id)
+  }
 
 }

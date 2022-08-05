@@ -10,6 +10,8 @@ import {Model} from "mongoose";
 export class MonthlyStatementService {
   constructor(@InjectModel('MonthlyStatement') private MonthlyStatementListModel:Model<MonthlyStatement>) {
   }
+
+
   async create(createMonthlyStatementDto: CreateMonthlyStatementDto) {
     return new this.MonthlyStatementListModel(createMonthlyStatementDto).save();
   }
