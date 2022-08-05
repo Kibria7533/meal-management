@@ -10,13 +10,14 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { AuthModule } from "../auth/auth.module";
 import { MealEntryModule } from "../meal_entry/meal_entry.module";
 import { RequestModule } from "../request/request.module";
-
+import { ConfigModule } from '@nestjs/config';
 import {MealEntry} from "../meal_entry/mealEntrySchema";
 // 'mongodb+srv://messdb1:kibria7533@cluster0.ak8uw.mongodb.net/?retryWrites=true&w=majority'
 // mongodb://localhost/mess
 //mongodb+srv://rafi29:rafi4472@cluster0.gk0nw.mongodb.net/?retryWrites=true&w=majority
 @Module({
-  imports: [MongooseModule.forRoot("mongodb+srv://rafi29:rafi4472@cluster0.gk0nw.mongodb.net/?retryWrites=true&w=majority"),
+  imports: [ConfigModule.forRoot(),
+      MongooseModule.forRoot(process.env.DATABASE),
     BazarListModule,
     MessModule,
     DepositModule,
@@ -27,6 +28,7 @@ import {MealEntry} from "../meal_entry/mealEntrySchema";
     AuthModule,
     MealEntryModule
   ],
+
   controllers: [AppController],
   providers: [AppService]
 })
