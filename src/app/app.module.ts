@@ -14,8 +14,9 @@ import { RequestModule } from "../request/request.module";
 import {MealEntry} from "../meal_entry/mealEntrySchema";
 // 'mongodb+srv://messdb1:kibria7533@cluster0.ak8uw.mongodb.net/?retryWrites=true&w=majority'
 // mongodb://localhost/mess
+//mongodb+srv://rafi29:rafi4472@cluster0.gk0nw.mongodb.net/?retryWrites=true&w=majority
 @Module({
-  imports: [MongooseModule.forRoot("mongodb://localhost/mess"),
+  imports: [MongooseModule.forRoot("mongodb+srv://rafi29:rafi4472@cluster0.gk0nw.mongodb.net/?retryWrites=true&w=majority"),
     BazarListModule,
     MessModule,
     DepositModule,
