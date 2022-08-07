@@ -10,6 +10,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Mess Management System')
     .setDescription('Mess Management System')
     .setVersion('1.0')
