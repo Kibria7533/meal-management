@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { CreateDepositDto } from "./dto/create-deposit.dto";
 import { UpdateDepositDto } from "./dto/update-deposit.dto";
 import { Deposit, DepositSchema } from "./depositSchema";
-import { Model } from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 
 
@@ -24,6 +24,10 @@ export class DepositService {
     return this.depositListModel.find().exec();
   }
 
+  async findOneAndUpdate(_id: string,depositListModel:CreateDepositDto) : Promise<any>{
+    return  this.depositListModel.updateOne({_id},{$set:{...depositListModel}})
+
+  }
   async update(id: number, updateDepositDto: UpdateDepositDto) {
     return this.depositListModel.updateOne({ id }, { $set: { ...updateDepositDto } });
   }

@@ -60,4 +60,20 @@ export class RequestService {
     });
   }
 
+
+  async acceptRequest(body:any){
+    if(body.type=="Deposit"){
+    return this.depositService.findOneAndUpdate(body.id,body.data);
+
+    }else if(body.type=="MealEntry"){
+
+    }else if(body.type=="BazarList"){
+
+    }else  if(body.type=="Member"){
+
+    }
+    return body;
+
+  }
+
 }

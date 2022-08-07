@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res } from "@nestjs/common";
+import {Controller, Get, Post, Body, Patch, Param, Delete, Res, ValidationPipe, Req, UseGuards} from "@nestjs/common";
 import { RequestService } from './request.service';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
@@ -7,6 +7,8 @@ import {BazarListService} from "../bazar-list/bazar-list.service";
 import {MealEntryService} from "../meal_entry/meal_entry.service";
 import {MemberService} from "../member/member.service";
 import { ApiTags } from '@nestjs/swagger';
+import {CreateBazarListDto} from "../bazar-list/dto/create-bazar-list.dto";
+import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 
 @ApiTags('Request')
 @Controller('request')
@@ -46,4 +48,9 @@ export class RequestController {
    return this.requestService.getAllRequest(id,res)
   }
 
+  @Post('/accept')
+  @UseGuards(new JwtAuthGuard(0))
+  acceptRequest(@Body() body: any, @Req() req){
+    return this.requestService.acceptRequest(body)
+  }
 }
