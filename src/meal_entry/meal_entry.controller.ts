@@ -5,6 +5,7 @@ import { UpdateMealEntryDto } from './dto/update-meal_entry.dto';
 import { CreateDepositDto } from "../deposit/dto/create-deposit.dto";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { ApiTags } from '@nestjs/swagger';
+import {CreateBazarListDto} from "../bazar-list/dto/create-bazar-list.dto";
 
 @ApiTags('Meal Entry')
 @Controller('meal-entry')

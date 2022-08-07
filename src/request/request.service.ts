@@ -63,12 +63,11 @@ export class RequestService {
 
   async acceptRequest(body:any){
     if(body.type=="Deposit"){
-    return this.depositService.findOneAndUpdate(body.id,body.data);
-
-    }else if(body.type=="MealEntry"){
-
+   return this.depositService.findOneAndUpdate(body.id,body.data);
     }else if(body.type=="BazarList"){
-
+      return  this.bazarListService.findOneAndUpdate(body.id,body.data)
+    } else if(body.type=="MealEntry"){
+    return this.mealEntryService.findOneAndUpdate(body.id,body.data)
     }else  if(body.type=="Member"){
 
     }

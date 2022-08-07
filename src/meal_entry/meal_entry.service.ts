@@ -4,6 +4,7 @@ import { UpdateMealEntryDto } from './dto/update-meal_entry.dto';
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
 import {MealEntry} from "./mealEntrySchema";
+import {CreateBazarListDto} from "../bazar-list/dto/create-bazar-list.dto";
 
 @Injectable()
 export class MealEntryService {
@@ -26,6 +27,9 @@ export class MealEntryService {
  async findOne(id: number): Promise<MealEntry[]> {
     return this.MealEntryModel.find().exec();
   }
+    async findOneAndUpdate(_id: string,MealEntryModel:CreateMealEntryDto) : Promise<any>{
+        return  this.MealEntryModel.updateOne({_id},{$set:{...MealEntryModel}})
+    }
 
  async update(id: number, updateMealEntryDto: UpdateMealEntryDto) {
     return this.MealEntryModel.updateOne({id},{$set:{...updateMealEntryDto}})

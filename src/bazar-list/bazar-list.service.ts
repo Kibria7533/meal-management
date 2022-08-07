@@ -4,6 +4,7 @@ import { UpdateBazarListDto } from './dto/update-bazar-list.dto';
 import {BazarListSchema, BazarList} from './bazarListSchema';
 import {Model} from "mongoose";
 import {InjectModel} from "@nestjs/mongoose";
+import {CreateDepositDto} from "../deposit/dto/create-deposit.dto";
 
 @Injectable()
 export class BazarListService {
@@ -21,6 +22,9 @@ export class BazarListService {
    findAll() {
     return this.bazarListModel.find();
   }
+    async findOneAndUpdate(_id: string,bazarListModel:CreateBazarListDto) : Promise<any>{
+        return  this.bazarListModel.updateOne({_id},{$set:{...bazarListModel}})
+    }
 
   findOne(id: number) {
     return `This action returns a #${id} bazarList`;

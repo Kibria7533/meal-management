@@ -26,7 +26,6 @@ export class DepositService {
 
   async findOneAndUpdate(_id: string,depositListModel:CreateDepositDto) : Promise<any>{
     return  this.depositListModel.updateOne({_id},{$set:{...depositListModel}})
-
   }
   async update(id: number, updateDepositDto: UpdateDepositDto) {
     return this.depositListModel.updateOne({ id }, { $set: { ...updateDepositDto } });

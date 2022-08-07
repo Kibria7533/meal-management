@@ -13,10 +13,7 @@ import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 @ApiTags('Request')
 @Controller('request')
 export class RequestController {
-  constructor(private readonly requestService: RequestService
-
-              ) {}
-
+  constructor(private readonly requestService: RequestService){}
   @Post()
   create(@Body() createRequestDto: CreateRequestDto) {
     return this.requestService.create(createRequestDto);
