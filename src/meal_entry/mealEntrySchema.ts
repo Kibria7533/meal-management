@@ -5,17 +5,17 @@ export class MealEntry {
     @IsNotEmpty()
     @IsNumber()
     @Prop()
-    break_fast: number;
+    break_fast: string;
 
     @IsNotEmpty()
     @IsNumber()
     @Prop()
-    lunch: number;
+    lunch: string;
 
     @IsNotEmpty()
     @IsNumber()
     @Prop()
-    dinner: number;
+    dinner: string;
 
     @IsNotEmpty()
     @IsString()

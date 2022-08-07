@@ -1,20 +1,20 @@
  import {IsNotEmpty,IsNumber,IsString} from "class-validator";
  import { ApiProperty } from '@nestjs/swagger';
 export class CreateMealEntryDto {
-    @IsNumber()
+    @IsString()
     @ApiProperty()
     @IsNotEmpty()
-    break_fast: number;
+    break_fast: string;
 
-    @IsNumber()
+    @IsString()
     @ApiProperty()
     @IsNotEmpty()
-    lunch: number;
+    lunch: string;
 
-    @IsNumber()
+    @IsString()
     @ApiProperty()
     @IsNotEmpty()
-    dinner: number;
+    dinner: string;
 
     @IsString()
     @ApiProperty()

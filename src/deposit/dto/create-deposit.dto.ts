@@ -9,10 +9,10 @@ export class CreateDepositDto {
   @IsNotEmpty()
   name: string;
 
-  @IsNumber()
+  @IsString()
   @ApiProperty()
   @IsNotEmpty()
-  amount: number;
+  amount: string;
 
   @IsString()
   @ApiProperty()

@@ -11,7 +11,7 @@ export class Deposit{
     @IsNotEmpty()
     @IsNumber()
     @Prop()
-    amount: number;
+    amount: string;
 
     @IsString()
     @IsString()
