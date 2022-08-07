@@ -6,7 +6,9 @@ import {DepositService} from "../deposit/deposit.service";
 import {BazarListService} from "../bazar-list/bazar-list.service";
 import {MealEntryService} from "../meal_entry/meal_entry.service";
 import {MemberService} from "../member/member.service";
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Request')
 @Controller('request')
 export class RequestController {
   constructor(private readonly requestService: RequestService

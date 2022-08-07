@@ -16,7 +16,9 @@ import { CreateBazarListDto } from './dto/create-bazar-list.dto';
 import { UpdateBazarListDto } from './dto/update-bazar-list.dto';
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { CreateDepositDto } from "../deposit/dto/create-deposit.dto";
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Bazar List')
 @Controller('bazar-list')
 export class BazarListController {
   constructor(private readonly bazarListService: BazarListService) {}

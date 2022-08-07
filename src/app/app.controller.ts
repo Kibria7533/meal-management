@@ -4,7 +4,9 @@ import { AuthService } from '../auth/auth.service';
 import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 import { CreateDepositDto } from "../deposit/dto/create-deposit.dto";
 import { CreateMemberDto } from "../member/dto/create-member.dto";
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Auth')
 @Controller()
 export class AppController {
   constructor(private authService: AuthService) {}

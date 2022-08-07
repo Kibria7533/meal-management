@@ -9,22 +9,25 @@ import {
   UseGuards,
   Request,
   ValidationPipe,
-  Req
-} from "@nestjs/common";
+  Req,
+} from '@nestjs/common';
 import { DepositService } from './deposit.service';
 import { CreateDepositDto } from './dto/create-deposit.dto';
 import { UpdateDepositDto } from './dto/update-deposit.dto';
-import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Deposit')
 @Controller('deposit')
 export class DepositController {
-  constructor(private readonly depositService: DepositService) {}
+  constructor(private readonly depositService: DepositService) {
+  }
 
   @Post()
   @UseGuards(new JwtAuthGuard(0))
   create(@Body(new ValidationPipe) body: CreateDepositDto, @Req() req) {
-    let deposit  =req.body;
-    deposit.person_id=req.user.user_id;
+    let deposit = req.body;
+    deposit.person_id = req.user.user_id;
     return this.depositService.create(deposit);
   }
 

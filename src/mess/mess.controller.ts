@@ -4,7 +4,9 @@ import { CreateMessDto } from './dto/create-mess.dto';
 import { UpdateMessDto } from './dto/update-mess.dto';
 import { CreateMealEntryDto } from "../meal_entry/dto/create-meal_entry.dto";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Mess')
 @Controller('mess')
 export class MessController {
   constructor(private readonly messService: MessService) {}
