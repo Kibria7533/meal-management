@@ -27,11 +27,11 @@ export class BazarListService {
   }
 
   update(id: number, updateBazarListDto: UpdateBazarListDto) {
-    return `This action updates a #${id} bazarList`;
+    return this.bazarListModel.updateOne({id},{$set:{...updateBazarListDto}})
   }
 
   remove(id: number) {
-    return `This action removes a #${id} bazarList`;
+      return this.bazarListModel.deleteOne({id})
   }
 
   getBazarStatement(id: string) {
@@ -48,8 +48,6 @@ export class BazarListService {
       {$project:{_id:0}}
     ]);
   }
-
-
 
 
     async getBazarRequest(id: string) {
