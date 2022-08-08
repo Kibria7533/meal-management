@@ -5,10 +5,13 @@ import {Mess, MessSchema} from './messSchema';
 import {Model} from 'mongoose';
 import {InjectModel} from "@nestjs/mongoose";
 import { MemberService } from "../member/member.service";
+import {Member} from "../member/memberSchema";
+import {MessMember,MessMemberSchema} from "./messMemberSchema";
 
 @Injectable()
 export class MessService {
   constructor(@InjectModel('Mess') private messListModel:Model<Mess>,
+              @InjectModel('MessMember') private messMemberModel:Model<MessMember>,
               @Inject(MemberService)
   private readonly memberService: MemberService) { }
 
@@ -27,12 +30,14 @@ export class MessService {
       const messList = new this.messListModel(mess);
       console.log("there");
       let messData=await messList.save();
-      let user=this.memberService.findOneAndUpdate(user_id,messData.mess_id);
+
+      const messmemberList= new this.messMemberModel({mess_id:messData.mess_id,person_id:user_id,status:1})
+      let messmemberData= await messmemberList.save();
       return {
         success:true,
-        status:404,
+        status:201,
         mess_info:messData,
-        msg:"Something error happened"
+        msg:"Mess Created"
       }
 
     }catch (err){
@@ -45,7 +50,38 @@ export class MessService {
   }
 
   async joinMess(mess_id:string,user_id:string):Promise<any>{
-    return await this.memberService.findOne( user_id, mess_id);
+    try {
+      let messExist=await this.messListModel.findOne({mess_id:mess_id})
+      if(!messExist){
+        return {
+          success:false,
+          status:404,
+          msg:"Mess dose not exist"
+        }
+      }else {
+        let messIds = await this.messMemberModel.find({user_id:user_id},{mess_id:1,_id:0})
+        console.log("messIds",messIds,mess_id)
+        if(!messIds){
+          return {
+            success:true,
+            status:201,
+            msg:"Mess Successful "
+          }
+        }else {
+          return {
+            success:false,
+            status:404,
+            msg:"Mess dose not exist"
+          }
+        }
+      }
+    }catch (err){
+      return {
+        success:false,
+        status:404,
+        msg:"Mess dose not exist"
+      }
+    }
   }
 
   findAll():Promise<Mess[]>{

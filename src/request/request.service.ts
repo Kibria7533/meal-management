@@ -7,6 +7,7 @@ import {Member} from "../member/memberSchema";
 import {BazarListService} from "../bazar-list/bazar-list.service";
 import {DepositService} from "../deposit/deposit.service";
 import {MealEntryService} from "../meal_entry/meal_entry.service";
+import {MemberService} from "../member/member.service";
 
 @Injectable()
 export class RequestService {
@@ -18,6 +19,7 @@ export class RequestService {
   private readonly depositService: DepositService,
               @Inject(MealEntryService)
               private readonly mealEntryService: MealEntryService,
+
 
 
   ) {
