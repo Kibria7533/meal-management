@@ -19,8 +19,8 @@ export class MessController {
 
   @Post('join-mess')
   @UseGuards(new JwtAuthGuard(0))
-  join(@Body() body, @Req() req){
-    return this.messService.joinMess(body.mess_id,req.user.user_id)
+  async join(@Body() body, @Req() req){
+    return await this.messService.joinMess(body.mess_id,req.user.user_id)
   }
 
   @Get()

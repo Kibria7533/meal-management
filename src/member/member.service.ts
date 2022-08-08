@@ -49,8 +49,31 @@ export class MemberService {
     return this.memberModel.find().exec();
   }
 
-  findOne(user_id: string,mess_id:string) {
-    return this.memberModel.findOne({_id:user_id,mess_id:mess_id});
+  async findOne(user_id: string,mess_id:string) {
+    try {
+    let member=await this.memberModel.findOne({ _id: user_id});
+    if(member.mess_id==mess_id){
+      return {
+        success: true,
+        status:201,
+        mess_id:member.mess_id,
+        msg: 'Mess Exist',
+      }
+    }else{
+      return {
+        success: false,
+        status:400,
+        msg: 'No Mess Exist with this id',
+      }
+    }
+
+    }catch (e){
+      return {
+        success: false,
+        status:400,
+        msg: 'No Mess Exist with this id',
+      }
+    }
   }
 
 

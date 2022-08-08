@@ -45,7 +45,7 @@ export class MessService {
   }
 
   async joinMess(mess_id:string,user_id:string):Promise<any>{
-    return this.memberService.findOne( user_id, mess_id);
+    return await this.memberService.findOne( user_id, mess_id);
   }
 
   findAll():Promise<Mess[]>{
