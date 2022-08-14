@@ -11,9 +11,10 @@ import { AuthModule } from '../auth/auth.module';
 import { MealEntryModule } from '../meal_entry/meal_entry.module';
 import { RequestModule } from '../request/request.module';
 import { ConfigModule } from '@nestjs/config';
+import { SearchModule } from "../search/search.module";
 
 @Module({
-  imports: [ConfigModule.forRoot(),
+  imports: [
     MongooseModule.forRoot(process.env.DATABASE),
     BazarListModule,
     MessModule,
@@ -24,6 +25,7 @@ import { ConfigModule } from '@nestjs/config';
     MonthlyStatementModule,
     AuthModule,
     MealEntryModule,
+    SearchModule
   ],
 
   controllers: [AppController],

@@ -1,15 +1,17 @@
-import { Body, Injectable, Post } from "@nestjs/common";
+import { Body, Inject, Injectable, Post } from "@nestjs/common";
 import { CreateMemberDto } from './dto/create-member.dto';
 import {UpdateMemberDto} from './dto/update-member.dto';
 import {Member} from "./memberSchema";
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
 import * as bcrypt from 'bcrypt';
+import { SearchService } from "../search/search.service";
 
 @Injectable()
 export class MemberService {
 
-  constructor(@InjectModel('Member') private memberModel:Model<Member>) {
+  constructor(@InjectModel('Member') private memberModel:Model<Member>, @Inject(SearchService)
+  private readonly searchService: SearchService) {
   }
 
   @Post()
@@ -28,6 +30,7 @@ export class MemberService {
       const saltOrRounds = 10;
       member.password=await bcrypt.hash(password, saltOrRounds);
      let user=new this.memberModel(member).save();
+      await this.searchService.indexPost(user);
      if(user)
        return {
          success: true,
@@ -85,6 +88,7 @@ export class MemberService {
   }
 
   async remove(id: number) {
+    await this.searchService.remove(id);
     return this.memberModel.deleteOne({id})
   }
 
