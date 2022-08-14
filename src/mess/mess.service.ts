@@ -60,10 +60,11 @@ export class MessService {
         }
       }else {
         let messIds = await this.messMemberModel.find({user_id:user_id},{mess_id:1,_id:0})
-        console.log("messIds",messIds,mess_id)
-        if(!messIds){
+        console.log(messIds,'messIds',messIds.some(el=>el.mess_id==mess_id));
+        if(messIds.some(el=>el.mess_id==mess_id)){
           return {
             success:true,
+            mess_id:mess_id,
             status:201,
             msg:"Mess Successful "
           }
