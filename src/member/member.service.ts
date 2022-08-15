@@ -55,11 +55,11 @@ export class MemberService {
   async findOne(user_id: string,mess_id:string) {
     try {
     let member=await this.memberModel.findOne({ _id: user_id});
-    if(member.mess_id==mess_id){
+    if('ll'==mess_id){
       return {
         success: true,
         status:201,
-        mess_id:member.mess_id,
+        mess_id:member,
         msg: 'Mess Exist',
       }
     }else{
