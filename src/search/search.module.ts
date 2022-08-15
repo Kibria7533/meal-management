@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ElasticsearchModule } from '@nestjs/elasticsearch';
 import { SearchService } from './search.service';
 import * as Joi from 'joi';
+import { SearchController } from "./search.controller";
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import * as Joi from 'joi';
       inject: [ConfigService],
     }),
   ],
+  controllers:[SearchController],
   providers: [SearchService],
   exports: [ElasticsearchModule, SearchService],
 })

@@ -29,8 +29,8 @@ export class MemberService {
     try{
       const saltOrRounds = 10;
       member.password=await bcrypt.hash(password, saltOrRounds);
-     let user=new this.memberModel(member).save();
-      await this.searchService.indexPost(user);
+     let user=await new this.memberModel(member).save();
+       await this.searchService.indexMember({name:user.name,email:user.email,phone_no:user.phone_no,address:user.address});
      if(user)
        return {
          success: true,
