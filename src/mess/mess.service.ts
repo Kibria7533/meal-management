@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { CreateMessDto } from './dto/create-mess.dto';
+import { AddMemberToMess, CreateMessDto } from "./dto/create-mess.dto";
 import { UpdateMessDto } from './dto/update-mess.dto';
 import {Mess, MessSchema} from './messSchema';
 import {Model} from 'mongoose';
@@ -60,7 +60,7 @@ export class MessService {
         }
       }else {
         let messIds = await this.messMemberModel.find({user_id:user_id},{mess_id:1,_id:0})
-        console.log(messIds,'messIds',messIds.some(el=>el.mess_id==mess_id));
+        // console.log(messIds,'messIds',messIds.some(el=>el.mess_id==mess_id));
         if(messIds.some(el=>el.mess_id==mess_id)){
           return {
             success:true,
@@ -83,6 +83,14 @@ export class MessService {
         msg:"Mess dose not exist"
       }
     }
+  }
+
+  async AddMemberToMess(
+    addMemberToMess: AddMemberToMess,
+  ): Promise<any> {
+    const member=await this.memberService.findOneMember(addMemberToMess.phone_no);
+    const messMember = await new this.messMemberModel({mess_id:addMemberToMess.mess_id,person_id:member._id,status:1});
+    return messMember.save();
   }
 
   findAll():Promise<Mess[]>{

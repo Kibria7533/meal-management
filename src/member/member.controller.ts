@@ -14,9 +14,9 @@ export class MemberController {
     return this.memberService.create(createMemberDto);
   }
 
-  @Get()
-  findAll() {
-    return this.memberService.findAll();
+  @Get(":mess_id")
+  findAll(@Param("mess_id") mess_id: string) {
+    return this.memberService.findAll(mess_id);
   }
 
 

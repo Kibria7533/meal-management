@@ -12,3 +12,16 @@ export class CreateMessDto {
     @ApiProperty()
     mess_id:string;
 }
+
+
+export class AddMemberToMess {
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty()
+    phone_no:string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty()
+    mess_id:string;
+}

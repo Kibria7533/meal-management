@@ -1,10 +1,10 @@
-import { Body, Inject, Injectable, Post, ValidationPipe } from "@nestjs/common";
-import { CreateMemberDto } from './dto/create-member.dto';
-import {UpdateMemberDto} from './dto/update-member.dto';
-import {Member} from "./memberSchema";
-import {InjectModel} from "@nestjs/mongoose";
-import {Model} from "mongoose";
-import * as bcrypt from 'bcrypt';
+import { Body, Inject, Injectable, Post } from "@nestjs/common";
+import { CreateMemberDto } from "./dto/create-member.dto";
+import { UpdateMemberDto } from "./dto/update-member.dto";
+import { Member } from "./memberSchema";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import * as bcrypt from "bcrypt";
 import { SearchService } from "../search/search.service";
 
 @Injectable()
@@ -59,8 +59,8 @@ export class MemberService {
 
   }
 
-  findAll():Promise<Member[]> {
-    return this.memberModel.find().exec();
+  findAll(mess_id:string):Promise<Member[]> {
+    return this.memberModel.find({status:1}).exec();
   }
 
   async findOne(user_id: string,mess_id:string) {
@@ -117,5 +117,9 @@ export class MemberService {
       { $project: { _id: 0 } }
     ]);
 
+  }
+
+   async findOneMember(phone_no:string) {
+     return this.memberModel.findOne({ phone_no: phone_no });
   }
 }
