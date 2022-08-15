@@ -1,41 +1,34 @@
 import { Prop,Schema,SchemaFactory} from "@nestjs/mongoose";
-import {IsNotEmpty,IsString,IsNumber} from "class-validator";
 
 @Schema({timestamps: true})
 export class Member{
 
-    @IsNotEmpty()
-    @IsString()
-    @Prop()
+    @Prop({
+        required: true,
+        unique: true,
+        type: String,
+    })
     name: string;
 
-    @IsNotEmpty()
-    @IsString()
     @Prop()
     email: string;
 
-    @IsNotEmpty()
-    @IsNumber()
-    @Prop()
+    @Prop({
+        required: true,
+        unique: true,
+        type: String,
+    })
     phone_no: string;
 
-    @IsNotEmpty()
-    @IsString()
     @Prop()
     address: string;
 
-    @IsNotEmpty()
-    @IsString()
     @Prop()
     password:string
 
-    @IsNotEmpty()
-    @IsNumber()
     @Prop({default: 0})
     role:Role
 
-    @IsNotEmpty()
-    @IsString()
     @Prop({default(val: any): any {
             return 0;
         }})

@@ -1,4 +1,4 @@
-import { Body, Injectable, Post } from "@nestjs/common";
+import { Body, Injectable, Post, ValidationPipe } from "@nestjs/common";
 import { JwtService } from '@nestjs/jwt';
 import {MemberService} from "../member/member.service";
 import * as bcrypt from 'bcrypt';

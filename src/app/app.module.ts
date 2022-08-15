@@ -15,7 +15,9 @@ import { SearchModule } from "../search/search.module";
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.DATABASE),
+    MongooseModule.forRoot(process.env.DATABASE, {
+      autoIndex: true,
+    }),
     BazarListModule,
     MessModule,
     DepositModule,

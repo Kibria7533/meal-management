@@ -1,4 +1,4 @@
-import { Body, Inject, Injectable, Post } from "@nestjs/common";
+import { Body, Inject, Injectable, Post, ValidationPipe } from "@nestjs/common";
 import { CreateMemberDto } from './dto/create-member.dto';
 import {UpdateMemberDto} from './dto/update-member.dto';
 import {Member} from "./memberSchema";
@@ -38,12 +38,23 @@ export class MemberService {
          msg: 'User created',
        }
 
-    }catch (err){
-      return {
-        success:false,
-        status:404,
-        msg: 'User already exists',
+    }catch (error){
+      if (error.name =="MongoServerError" && error.code === 11000) {
+        return {
+          success:false,
+          status:404,
+          msg: 'This Phone Number Already Taken',
+        }
       }
+      else {
+        return {
+          success:false,
+          status:404,
+          msg: 'Server Error',
+        }
+      }
+
+
     }
 
   }

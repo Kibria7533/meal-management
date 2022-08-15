@@ -37,6 +37,8 @@
     "class-validator": "^0.13.2",
     "joi": "^17.6.0",
     "mongoose": "^6.4.5",
+    "mongoose-unique-validator": "^3.1.0",
+    "mongoose-validation-error-message-handler": "^1.2.5",
     "passport": "^0.5.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
