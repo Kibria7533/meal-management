@@ -1,10 +1,10 @@
-import { Controller, Request, Post, UseGuards, Get, Body, ValidationPipe, UseFilters } from "@nestjs/common";
-import { LocalAuthGuard } from '../auth/local-auth.guard';
-import { AuthService } from '../auth/auth.service';
-import {JwtAuthGuard} from "../auth/jwt-auth.guard";
-import { CreateDepositDto } from "../deposit/dto/create-deposit.dto";
+import { Body, Controller, Get, Post, Request, UseGuards, ValidationPipe } from "@nestjs/common";
+import { LocalAuthGuard } from "../auth/local-auth.guard";
+import { AuthService } from "../auth/auth.service";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { CreateMemberDto } from "../member/dto/create-member.dto";
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags } from "@nestjs/swagger";
+import { USER_ROLE,ADMIN_ROLE} from "./app.constant";
 
 @ApiTags('Auth')
 @Controller()
@@ -23,13 +23,13 @@ export class AppController {
   }
 
   @Get('profile-user')
-  @UseGuards(new JwtAuthGuard(0))
+  @UseGuards(new JwtAuthGuard(USER_ROLE))
   getProfileUser(@Request() req) {
     return req.user;
   }
 
   @Get('profile-admin')
-  @UseGuards(new JwtAuthGuard(1))
+  @UseGuards(new JwtAuthGuard(ADMIN_ROLE))
   getProfileAdmin(@Request() req) {
     return req.user;
   }
