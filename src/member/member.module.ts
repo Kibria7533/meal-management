@@ -13,7 +13,7 @@ import { MessModule } from "../mess/mess.module";
       name: Member.name,
       useFactory: () => {
         const schema = MemberSchema;
-        schema.plugin(require('mongoose-unique-validator'), { message: 'is already taken' }); // or you can integrate it without the options   schema.plugin(require('mongoose-unique-validator')
+        schema.plugin(require('mongoose-unique-validator'), { message: 'is already taken' });
         return schema;
       },
     },

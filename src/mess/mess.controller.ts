@@ -65,6 +65,13 @@ export class MessController {
 
   }
 
+  @Get("all-member-count/:mess_id")
+  async getAllMessMemberCount(@Param("mess_id") mess_id: string){
+    const userIds=await this.messService.findAllMemberIds(mess_id);
+    return await this.memberService.getAllMemberOfaMessCount(userIds);
+
+  }
+
   @Get()
   findAll() {
     return this.messService.findAll();

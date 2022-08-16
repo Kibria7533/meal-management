@@ -48,18 +48,18 @@ export class MonthlyStatementController {
   async getMonthlyStatement(@Param("mess_id") mess_id: string,@Res() res){
     console.log(mess_id,"mess_id");
     let deposit=await this.depositService.getDepositStatement(mess_id);
-    let bazarList=await this.bazarListService.getBazarStatement(mess_id);
-    let memberList=await this.memberService.getMemberStatement(mess_id);
-    let mealList=await this.mealEntryService.getMealStatement(mess_id);
+    let bazar=await this.bazarListService.getBazarStatement(mess_id);
+    let member=await this.memberService.getMemberStatement(mess_id);
+    let meal=await this.mealEntryService.getMealStatement(mess_id);
 
 
     return res.status(HttpStatus.OK).json({
       status: 'success',
       data: {
-        bazarList,
+        bazar,
         deposit,
-        mealList,
-        memberList
+        meal,
+        member
       }
     });
 

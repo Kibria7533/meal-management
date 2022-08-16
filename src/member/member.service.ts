@@ -98,13 +98,12 @@ export class MemberService {
   getMemberStatement(id: string) {
     return this.memberModel.aggregate([{
       $match: {
-        $and: [{ status: 1 }, { mess_id: id }]
+        $and: [{ mess_id: id }]
       }
     },
       { $group: { _id: "$mess_id", totalActiveMember: { $sum: "$_id" } } },
       { $project: { _id: 0 } }
     ]);
-
   }
 
    async findOneMember(phone_no:string) {
@@ -113,5 +112,9 @@ export class MemberService {
 
   async getAllMemberOfaMess(userIds: Array<string>) {
     return this.memberModel.find({ "_id": { "$in": userIds } })
+  }
+
+  async getAllMemberOfaMessCount(userIds: Array<string>) {
+    return this.memberModel.find({ "_id": { "$in": userIds } }).count()
   }
 }

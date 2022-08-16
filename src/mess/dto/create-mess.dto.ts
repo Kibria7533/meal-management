@@ -1,5 +1,6 @@
-import {IsString,IsNotEmpty} from "class-validator";
+import { IsString, IsNotEmpty, IsNumber, IsPhoneNumber } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from "class-transformer";
 
 export class CreateMessDto {
     @IsString()
@@ -7,10 +8,11 @@ export class CreateMessDto {
     @ApiProperty()
     mess_name:string;
 
-    @IsString()
-    @IsNotEmpty()
+    @IsNumber()
     @ApiProperty()
-    mess_id:string;
+    @IsNotEmpty()
+    @Type(() => Number)
+    mess_id:number;
 }
 
 
@@ -18,10 +20,12 @@ export class AddMemberToMess {
     @IsString()
     @IsNotEmpty()
     @ApiProperty()
+    @IsPhoneNumber("BD")
     phone_no:string;
 
-    @IsString()
-    @IsNotEmpty()
+    @IsNumber()
     @ApiProperty()
+    @IsNotEmpty()
+    @Type(() => Number)
     mess_id:string;
 }
