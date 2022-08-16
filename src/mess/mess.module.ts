@@ -10,6 +10,7 @@ import {MessMemberSchema} from "./messMemberSchema";
     MemberModule,
     MongooseModule.forFeature([{ name: 'Mess', schema: MessSchema },{ name: 'MessMember', schema: MessMemberSchema }])],
   controllers: [MessController],
-  providers: [MessService]
+  providers: [MessService],
+  exports :[MessService]
 })
 export class MessModule {}

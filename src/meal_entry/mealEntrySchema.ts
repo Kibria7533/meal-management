@@ -2,38 +2,30 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import {IsNotEmpty, IsNumber, IsString} from "class-validator";
 @Schema({ timestamps: true })
 export class MealEntry {
-    @IsNotEmpty()
-    @IsNumber()
+
     @Prop()
     break_fast: string;
 
-    @IsNotEmpty()
-    @IsNumber()
     @Prop()
     lunch: string;
 
-    @IsNotEmpty()
-    @IsNumber()
+
     @Prop()
     dinner: string;
 
-    @IsNotEmpty()
-    @IsString()
+
     @Prop()
     meal_of: string;
 
-    @IsNotEmpty()
-    @IsString()
+
     @Prop()
     mess_id: string;
 
-    @IsString()
-    @IsString()
+
     @Prop()
     person_id: string;
 
-    @IsNotEmpty()
-    @IsString()
+
     @Prop({default(val: any): any {
         return 0;
         }})

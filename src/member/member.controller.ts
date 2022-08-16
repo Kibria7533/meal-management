@@ -14,11 +14,6 @@ export class MemberController {
     return this.memberService.create(createMemberDto);
   }
 
-  @Get(":mess_id")
-  findAll(@Param("mess_id") mess_id: string) {
-    return this.memberService.findAll(mess_id);
-  }
-
 
 
   @Patch(':id')

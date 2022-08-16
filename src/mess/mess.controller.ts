@@ -18,11 +18,13 @@ import { UpdateMessDto } from "./dto/update-mess.dto";
 import { CreateMealEntryDto } from "../meal_entry/dto/create-meal_entry.dto";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { ApiTags } from "@nestjs/swagger";
+import { DepositService } from "../deposit/deposit.service";
+import { MemberService } from "../member/member.service";
 
 @ApiTags("Mess")
 @Controller("mess")
 export class MessController {
-  constructor(private readonly messService: MessService) {
+  constructor(private readonly messService: MessService, private readonly memberService: MemberService) {
   }
 
   @Post()
@@ -53,6 +55,13 @@ export class MessController {
         status: 400,
       });
     }
+
+  }
+
+  @Get("all-member/:mess_id")
+  async getAllMessMember(@Param("mess_id") mess_id: string){
+     const userIds=await this.messService.findAllMemberIds(mess_id);
+     return await this.memberService.getAllMemberOfaMess(userIds);
 
   }
 

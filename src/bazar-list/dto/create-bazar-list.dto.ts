@@ -1,19 +1,19 @@
 import { IsNotEmpty, IsNumber, IsString, MaxLength } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from "class-transformer";
 export class CreateBazarListDto {
 
-    @IsString()
-    @ApiProperty()
-
-    @MaxLength(30)
+    @IsNumber()
     @ApiProperty()
     @IsNotEmpty()
-    readonly cost: string;
+    @Type(() => Number)
+    readonly cost: number;
 
-    @IsString()
+    @IsNumber()
     @ApiProperty()
     @IsNotEmpty()
-    readonly mess_id: string;
+    @Type(() => Number)
+    readonly mess_id: number;
 
     @IsString()
     @ApiProperty()

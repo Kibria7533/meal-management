@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, Res } from "@nestjs/common";
 import { MonthlyStatementService } from "./monthly_statement.service";
 import { CreateMonthlyStatementDto } from "./dto/create-monthly_statement.dto";
 import { UpdateMonthlyStatementDto } from "./dto/update-monthly_statement.dto";
@@ -44,16 +44,24 @@ export class MonthlyStatementController {
     return this.monthlyStatementService.remove(+id);
   }
 
-  @Get("/get-statement/:id")
-  getMonthlyStatement(@Param("id") id: string){
+  @Get("/get-statement/:mess_id")
+  async getMonthlyStatement(@Param("mess_id") mess_id: string,@Res() res){
+    console.log(mess_id,"mess_id");
+    let deposit=await this.depositService.getDepositStatement(mess_id);
+    let bazarList=await this.bazarListService.getBazarStatement(mess_id);
+    let memberList=await this.memberService.getMemberStatement(mess_id);
+    let mealList=await this.mealEntryService.getMealStatement(mess_id);
 
-    let deposit=this.depositService.getDepositStatement(id);
-    let bazarList=this.bazarListService.getBazarStatement(id);
-    let memberList=this.memberService.getMemberStatement(id);
-    let mealList=this.mealEntryService.getMealStatement(id);
 
-
-    return memberList;
+    return res.status(HttpStatus.OK).json({
+      status: 'success',
+      data: {
+        bazarList,
+        deposit,
+        mealList,
+        memberList
+      }
+    });
 
 
   }

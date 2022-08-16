@@ -1,6 +1,7 @@
 //export class CreateDepositDto {}
 import { IsNotEmpty, IsNumber, IsString, MaxLength } from "class-validator";
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from "@nestjs/swagger";
+import { Type } from "class-transformer";
 
 export class CreateDepositDto {
   @IsString()
@@ -9,10 +10,11 @@ export class CreateDepositDto {
   @IsNotEmpty()
   name: string;
 
-  @IsString()
+  @IsNumber()
   @ApiProperty()
   @IsNotEmpty()
-  amount: string;
+  @Type(() => Number)
+  amount: number;
 
   @IsString()
   @ApiProperty()

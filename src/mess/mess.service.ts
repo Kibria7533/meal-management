@@ -1,12 +1,11 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { AddMemberToMess, CreateMessDto } from "./dto/create-mess.dto";
-import { UpdateMessDto } from './dto/update-mess.dto';
-import {Mess, MessSchema} from './messSchema';
-import {Model} from 'mongoose';
-import {InjectModel} from "@nestjs/mongoose";
+import { UpdateMessDto } from "./dto/update-mess.dto";
+import { Mess } from "./messSchema";
+import { Model } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose";
 import { MemberService } from "../member/member.service";
-import {Member} from "../member/memberSchema";
-import {MessMember,MessMemberSchema} from "./messMemberSchema";
+import { MessMember } from "./messMemberSchema";
 
 @Injectable()
 export class MessService {
@@ -93,6 +92,9 @@ export class MessService {
     return messMember.save();
   }
 
+  async MessIds(mess_id:string){
+   return await this.messMemberModel.find({mess_id:mess_id},{_id:0,mess_id:1});
+  }
   findAll():Promise<Mess[]>{
     return this.messListModel.find().exec();
   }
@@ -107,5 +109,11 @@ export class MessService {
 
   remove(id: number) {
     return this.messListModel.deleteOne({id})
+  }
+
+  async findAllMemberIds(mess_id: string) {
+    const personIds=await this.messMemberModel.find({ mess_id: mess_id ,status:1}, { _id: 0, person_id: 1 });
+    return personIds.map((person) => person.person_id);
+
   }
 }

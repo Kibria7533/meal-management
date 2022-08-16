@@ -1,4 +1,4 @@
-import { IsEmpty, IsNotEmpty, IsNumber, IsString, MaxLength, MinLength } from "class-validator";
+import { IsEmpty, IsNotEmpty, IsNumber, IsPhoneNumber, IsString, MaxLength, MinLength } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger';
 export class CreateMemberDto {
     @IsString()
@@ -16,6 +16,7 @@ export class CreateMemberDto {
     @IsString()
     @ApiProperty()
     @IsNotEmpty()
+    @IsPhoneNumber("BD")
     readonly phone_no: string;
 
     @IsString()

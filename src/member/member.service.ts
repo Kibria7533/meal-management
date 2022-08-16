@@ -1,4 +1,4 @@
-import { Body, Inject, Injectable, Post } from "@nestjs/common";
+import { Body, forwardRef, Inject, Injectable, Post } from "@nestjs/common";
 import { CreateMemberDto } from "./dto/create-member.dto";
 import { UpdateMemberDto } from "./dto/update-member.dto";
 import { Member } from "./memberSchema";
@@ -6,6 +6,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import * as bcrypt from "bcrypt";
 import { SearchService } from "../search/search.service";
+import { MessService } from "../mess/mess.service";
 
 @Injectable()
 export class MemberService {
@@ -39,29 +40,15 @@ export class MemberService {
        }
 
     }catch (error){
-      if (error.name =="MongoServerError" && error.code === 11000) {
         return {
           success:false,
           status:404,
-          msg: 'This Phone Number Already Taken',
-        }
-      }
-      else {
-        return {
-          success:false,
-          status:404,
-          msg: 'Server Error',
+          msg: "Phone no is already taken",
         }
       }
 
-
-    }
-
   }
 
-  findAll(mess_id:string):Promise<Member[]> {
-    return this.memberModel.find({status:1}).exec();
-  }
 
   async findOne(user_id: string,mess_id:string) {
     try {
@@ -94,6 +81,7 @@ export class MemberService {
   async findOneAndUpdate(id: string,mess_id:any) : Promise<any>{
      return this.memberModel.findOneAndUpdate({ _id: id }, { mess_id: mess_id });
   }
+
   update(id: number, updateMemberDto: UpdateMemberDto) {
     return `This action updates a #${id} member`;
   }
@@ -121,5 +109,9 @@ export class MemberService {
 
    async findOneMember(phone_no:string) {
      return this.memberModel.findOne({ phone_no: phone_no });
+  }
+
+  async getAllMemberOfaMess(userIds: Array<string>) {
+    return this.memberModel.find({ "_id": { "$in": userIds } })
   }
 }

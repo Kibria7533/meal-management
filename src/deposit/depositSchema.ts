@@ -3,28 +3,22 @@ import {IsNotEmpty,IsString,IsNumber} from "class-validator";
 @Schema({timestamps: true})
 export class Deposit{
 
-    @IsNotEmpty()
-    @IsString()
+
     @Prop()
     name: string;
 
-    @IsNotEmpty()
-    @IsNumber()
-    @Prop()
-    amount: string;
 
-    @IsString()
-    @IsString()
+    @Prop()
+    amount: number;
+
     @Prop()
     person_id: string;
 
-    @IsNotEmpty()
-    @IsString()
+
     @Prop()
     mess_id: string;
 
-    @IsNotEmpty()
-    @IsString()
+
     @Prop({default(val: any): any {
             return 0;
         }})
