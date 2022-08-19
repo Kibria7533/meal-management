@@ -49,6 +49,9 @@ export class MemberService {
 
   }
 
+ async findMember(user_id:string){
+    return this.memberModel.findOne({ _id: user_id },{password:0}).populate('image');
+ }
 
   async findOne(user_id: string,mess_id:string) {
     try {
@@ -84,6 +87,11 @@ export class MemberService {
 
   update(id: number, updateMemberDto: UpdateMemberDto) {
     return `This action updates a #${id} member`;
+  }
+
+  async updateImage(id: string, image:any) {
+    const images=await  this.memberModel.findOneAndUpdate({ _id: id }, { image: image });
+    console.log(images);
   }
 
   async remove(id: number) {

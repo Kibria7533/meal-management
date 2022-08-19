@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from "@nestjs/common";
 import { MemberService } from './member.service';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
 @ApiTags('Member')
 @Controller('member')
@@ -14,6 +15,11 @@ export class MemberController {
     return this.memberService.create(createMemberDto);
   }
 
+  @Get("profile")
+  @UseGuards(new JwtAuthGuard(0))
+  getProfile(@Req() req) {
+    return this.memberService.findMember( req.user.user_id)
+  }
 
 
   @Patch(':id')
