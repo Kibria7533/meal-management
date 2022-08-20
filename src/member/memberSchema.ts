@@ -1,4 +1,5 @@
-import { Prop,Schema,SchemaFactory} from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Schema as MongooseSchema } from "mongoose";
 
 @Schema({timestamps: true})
 export class Member{
@@ -29,6 +30,8 @@ export class Member{
     @Prop({default: 0})
     role:Role
 
+    @Prop({ type: MongooseSchema.Types.ObjectId , ref: 'UserImage' })
+    image:  MongooseSchema.Types.ObjectId
 }
 
 enum Role {

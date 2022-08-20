@@ -11,6 +11,7 @@ import { AuthModule } from "../auth/auth.module";
 import { MealEntryModule } from "../meal_entry/meal_entry.module";
 import { RequestModule } from "../request/request.module";
 import { SearchModule } from "../search/search.module";
+import { UploadModule } from "../upload/upload.module";
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { SearchModule } from "../search/search.module";
     MonthlyStatementModule,
     AuthModule,
     MealEntryModule,
-    SearchModule
+    SearchModule,
+    UploadModule
   ],
 
   controllers: [AppController],
