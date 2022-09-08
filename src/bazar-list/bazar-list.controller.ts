@@ -9,7 +9,7 @@ import {
   UseGuards,
   Request,
   ValidationPipe,
-  Req
+  Req, Res, HttpStatus
 } from "@nestjs/common";
 import { BazarListService } from './bazar-list.service';
 import { CreateBazarListDto } from './dto/create-bazar-list.dto';
@@ -19,7 +19,7 @@ import { CreateDepositDto } from "../deposit/dto/create-deposit.dto";
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Bazar List')
-@Controller('bazar-list')
+@Controller('private/bazar-list')
 export class BazarListController {
   constructor(private readonly bazarListService: BazarListService) {}
 
@@ -32,8 +32,10 @@ export class BazarListController {
   }
 
   @Get()
-  findAll() {
-    return this.bazarListService.findAll();
+  async findAll(@Res() res,) {
+
+    const bazarLists = await this.bazarListService.findAll();
+    return res.status(HttpStatus.OK).json(bazarLists);
   }
 
   @Get(':id')
