@@ -1,22 +1,22 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Req,
+  Res,
   UseGuards,
-  Request,
-  ValidationPipe,
-  Req, Res, HttpStatus
+  ValidationPipe
 } from "@nestjs/common";
-import { BazarListService } from './bazar-list.service';
-import { CreateBazarListDto } from './dto/create-bazar-list.dto';
-import { UpdateBazarListDto } from './dto/update-bazar-list.dto';
+import { BazarListService } from "./bazar-list.service";
+import { CreateBazarListDto } from "./dto/create-bazar-list.dto";
+import { UpdateBazarListDto } from "./dto/update-bazar-list.dto";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
-import { CreateDepositDto } from "../deposit/dto/create-deposit.dto";
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags } from "@nestjs/swagger";
 
 @ApiTags('Bazar List')
 @Controller('private/bazar-list')
