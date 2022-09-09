@@ -33,7 +33,6 @@ export class BazarListController {
 
   @Get()
   async findAll(@Res() res,) {
-
     const bazarLists = await this.bazarListService.findAll();
     return res.status(HttpStatus.OK).json(bazarLists);
   }
