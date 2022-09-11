@@ -1,4 +1,4 @@
-import { Body, forwardRef, Inject, Injectable, Post } from "@nestjs/common";
+import { BadRequestException, Body, forwardRef, Inject, Injectable, Post } from "@nestjs/common";
 import { CreateMemberDto } from "./dto/create-member.dto";
 import { UpdateMemberDto } from "./dto/update-member.dto";
 import { Member } from "./memberSchema";
@@ -8,12 +8,12 @@ import * as bcrypt from "bcrypt";
 import { SearchService } from "../search/search.service";
 import { MessService } from "../mess/mess.service";
 import { MailerService } from "@nestjs-modules/mailer";
+import { keycloakAdminClient } from "../keycloak/keycloak";
 
 @Injectable()
 export class MemberService {
 
-  constructor(@InjectModel('Member') private memberModel:Model<Member>, @Inject(SearchService)
-  private readonly searchService: SearchService,@Inject(MailerService)
+  constructor(@InjectModel('Member') private memberModel:Model<Member>,@Inject(MailerService)
   private readonly mailerService: MailerService) {
   }
 
@@ -33,8 +33,19 @@ export class MemberService {
       const saltOrRounds = 10;
       member.password=await bcrypt.hash(password, saltOrRounds);
      let user=await new this.memberModel(member).save();
-       await this.searchService.indexMember({name:user.name,email:user.email,phone_no:user.phone_no,address:user.address});
+       // await this.searchService.indexMember({name:user.name,email:user.email,phone_no:user.phone_no,address:user.address});
      if(user){
+       const keycloakData={
+         username: user.name,
+         email: user.email,
+         firstName: user.name,
+         lastName: user.name,
+         password: member.password,
+       }
+     const ssoUser= await this.keyCloakRegistration(keycloakData);
+       if (!ssoUser) {
+         throw new BadRequestException('Registration failed');
+       }
        const mailObj={
          name:user.name,
          powers:['Rafi','Kibria','Taskin'],
@@ -59,6 +70,38 @@ export class MemberService {
         }
       }
 
+  }
+
+
+
+  async keyCloakRegistration(keyCloakUserData) {
+    const client = await keycloakAdminClient();
+
+    const keycloakUserNameCount = await client.users.count({
+      username: keyCloakUserData.username,
+    });
+    const keycloakUserEmailCount = await client.users.count({
+      email: keyCloakUserData.email,
+    });
+
+    if (keycloakUserNameCount > 0 || keycloakUserEmailCount > 0) {
+      return false;
+    }
+
+    return await client.users.create({
+      username: keyCloakUserData.username,
+      email: keyCloakUserData.email,
+      firstName: keyCloakUserData.first_name,
+      lastName: keyCloakUserData.last_name,
+      enabled: true,
+      credentials: [
+        {
+          type: 'password',
+          value: keyCloakUserData.password,
+          temporary: false,
+        },
+      ],
+    });
   }
 
  async findMember(user_id:string){
@@ -107,7 +150,7 @@ export class MemberService {
   }
 
   async remove(id: number) {
-    await this.searchService.remove(id);
+    // await this.searchService.remove(id);
     return this.memberModel.deleteOne({id})
   }
 
