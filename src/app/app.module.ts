@@ -10,11 +10,12 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { AuthModule } from "../auth/auth.module";
 import { MealEntryModule } from "../meal_entry/meal_entry.module";
 import { RequestModule } from "../request/request.module";
-import { SearchModule } from "../search/search.module";
 import { UploadModule } from "../upload/upload.module";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.DATABASE, {
       autoIndex: true,
     }),
@@ -27,7 +28,7 @@ import { UploadModule } from "../upload/upload.module";
     MonthlyStatementModule,
     AuthModule,
     MealEntryModule,
-    SearchModule,
+    // SearchModule,
     UploadModule
   ],
 

@@ -13,8 +13,10 @@ import { keycloakAdminClient } from "../keycloak/keycloak";
 @Injectable()
 export class MemberService {
 
-  constructor(@InjectModel('Member') private memberModel:Model<Member>, @Inject(SearchService)
-  private readonly searchService: SearchService,@Inject(MailerService)
+  constructor(@InjectModel('Member') private memberModel:Model<Member>,
+              //@Inject(SearchService)
+ // private readonly searchService: SearchService,
+              @Inject(MailerService)
   private readonly mailerService: MailerService) {
   }
 
@@ -153,9 +155,10 @@ export class MemberService {
   }
 
   async remove(id: number) {
-    await this.searchService.remove(id);
+    // await this.searchService.remove(id);
     return this.memberModel.deleteOne({id})
   }
+
 
   async find(name: string) {
     return  this.memberModel.findOne({name: name});
