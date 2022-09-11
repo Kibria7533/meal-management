@@ -34,7 +34,7 @@ import { HandlebarsAdapter } from "@nestjs-modules/mailer/dist/adapters/handleba
         return schema;
       },
     },
-  ])],
+  ]),SearchModule],
   controllers: [MemberController],
   providers: [MemberService],
   exports: [MemberService]

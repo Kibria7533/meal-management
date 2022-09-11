@@ -13,7 +13,8 @@ import { keycloakAdminClient } from "../keycloak/keycloak";
 @Injectable()
 export class MemberService {
 
-  constructor(@InjectModel('Member') private memberModel:Model<Member>,@Inject(MailerService)
+  constructor(@InjectModel('Member') private memberModel:Model<Member>, @Inject(SearchService)
+  private readonly searchService: SearchService,@Inject(MailerService)
   private readonly mailerService: MailerService) {
   }
 
@@ -40,9 +41,10 @@ export class MemberService {
          email: user.email,
          firstName: user.name,
          lastName: user.name,
-         password: member.password,
+         password: password,
        }
      const ssoUser= await this.keyCloakRegistration(keycloakData);
+       console.log(ssoUser,'ssoUser Data',keycloakData);
        if (!ssoUser) {
          throw new BadRequestException('Registration failed');
        }
@@ -63,6 +65,7 @@ export class MemberService {
 
      }
     }catch (error){
+      console.log(error,"error");
         return {
           success:false,
           status:404,
@@ -150,7 +153,7 @@ export class MemberService {
   }
 
   async remove(id: number) {
-    // await this.searchService.remove(id);
+    await this.searchService.remove(id);
     return this.memberModel.deleteOne({id})
   }
 

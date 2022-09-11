@@ -1,25 +1,25 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
-  HttpStatus,
-  Param,
-  Patch,
   Post,
-  Req,
-  Res,
+  Body,
+  Patch,
+  Param,
+  Delete,
   UseGuards,
-  ValidationPipe
+  Request,
+  ValidationPipe,
+  Req
 } from "@nestjs/common";
-import { BazarListService } from "./bazar-list.service";
-import { CreateBazarListDto } from "./dto/create-bazar-list.dto";
-import { UpdateBazarListDto } from "./dto/update-bazar-list.dto";
+import { BazarListService } from './bazar-list.service';
+import { CreateBazarListDto } from './dto/create-bazar-list.dto';
+import { UpdateBazarListDto } from './dto/update-bazar-list.dto';
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
-import { ApiTags } from "@nestjs/swagger";
+import { CreateDepositDto } from "../deposit/dto/create-deposit.dto";
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Bazar List')
-@Controller('private/bazar-list')
+@Controller('bazar-list')
 export class BazarListController {
   constructor(private readonly bazarListService: BazarListService) {}
 
@@ -32,9 +32,8 @@ export class BazarListController {
   }
 
   @Get()
-  async findAll(@Res() res,) {
-    const bazarLists = await this.bazarListService.findAll();
-    return res.status(HttpStatus.OK).json(bazarLists);
+  findAll() {
+    return this.bazarListService.findAll();
   }
 
   @Get(':id')

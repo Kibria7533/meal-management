@@ -12,11 +12,10 @@ import { MealEntryModule } from "../meal_entry/meal_entry.module";
 import { RequestModule } from "../request/request.module";
 import { SearchModule } from "../search/search.module";
 import { UploadModule } from "../upload/upload.module";
-import { ConfigModule, ConfigService } from '@nestjs/config';
+
 @Module({
   imports: [
-    ConfigModule,
-    MongooseModule.forRoot("mongodb+srv://messmeal:mess@cluster0.ak8uw.mongodb.net/?retryWrites=true&w=majority", {
+    MongooseModule.forRoot(process.env.DATABASE, {
       autoIndex: true,
     }),
     BazarListModule,
@@ -28,7 +27,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     MonthlyStatementModule,
     AuthModule,
     MealEntryModule,
-    // SearchModule,
+    SearchModule,
     UploadModule
   ],
 
