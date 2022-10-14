@@ -1,16 +1,16 @@
 import * as KeycloakAdminClient from '@keycloak/keycloak-admin-client';
 
 export const keycloakConfig = {
-  realm: 'mess',
-  clientId: 'mess-client',
-  clientSecret: 'aqXl7V7kXDhWjfoKDaQIQwFzmDMsFnnV',
-  baseUrl: 'http://localhost:8088/auth',
+  realm: 'mymess',
+  clientId: 'mymess-client',
+  clientSecret: 'yfZP19xNuY7JUoC0D0BYSMzqIHwCjZNB',
+  baseUrl: 'http://localhost:8080/auth',
   loginUrl:
-    'http://localhost:8088/auth/realms/mess/protocol/openid-connect/auth',
+    'http://localhost:8080/auth/realms/mymess/protocol/openid-connect/auth',
   logoutUrl:
-    'http://localhost:8088/auth/realms/mess/protocol/openid-connect/logout',
+    'http://localhost:8080/auth/realms/mymess/protocol/openid-connect/logout',
   tokenUrl:
-    'http://localhost:8088/auth/realms/mess/protocol/openid-connect/token',
+    'http://localhost:8080/auth/realms/mymess/protocol/openid-connect/token',
   loginCallbackUri: '/callback',
   logoutCallbackUri: '/logout',
 };
@@ -22,10 +22,11 @@ export const keycloakAdminClient = async function () {
   });
 
   await kcAdminClient.auth({
-    username: 'user',
-    password: 'user',
+    username: 'kibria',
+    password: 'admin',
     grantType: 'password',
     clientId: 'admin-cli',
+    clientSecret: 'yfZP19xNuY7JUoC0D0BYSMzqIHwCjZNB'
   });
 
   return kcAdminClient;
